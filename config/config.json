@@ -1,0 +1,12 @@
+{
+    "server": {
+        "address": "localhost",
+        "port": 8080
+    },
+    "mysql": {
+        "port": 3306,
+        "host": "49.234.98.15",
+        "password": "BDB515dab2a7",
+        "user": "root"
+    }
+}
