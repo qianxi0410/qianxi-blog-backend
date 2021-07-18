@@ -28,7 +28,7 @@ func main() {
 	post := r.Group("/post")
 	{
 		var pc controller.PostController
-		post.GET("/ping", pc.Pong)
+		post.GET("/:id", pc.GetPostById)
 	}
 
 	if err := r.Run(fmt.Sprintf("%s:%d", addr, port)); err != nil {

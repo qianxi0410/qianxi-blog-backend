@@ -5,8 +5,8 @@
     },
     "mysql": {
         "port": 3306,
-        "host": "",
-        "password": "",
+        "host": "49.234.98.15",
+        "password": "BDB515dab2a7",
         "user": "root"
     }
 }

@@ -1,11 +1,29 @@
 package controller
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/qianxi/blog_backend/service"
+	"github.com/qianxi/blog_backend/util"
+)
 
 type PostController struct{}
 
-func (p PostController) Pong(c *gin.Context) {
-	c.JSON(200, map[int]int{
-		1: 2,
+var postService service.PostService
+
+func (p PostController) GetPostById(c *gin.Context) {
+	id := c.Param("id")
+	result, err := postService.Get(id)
+	if err != nil {
+		c.JSON(200, util.Response{
+			Code: util.ERROR,
+			Msg:  err.Error(),
+			Data: nil,
+		})
+		return
+	}
+	c.JSON(200, util.Response{
+		Code: util.OK,
+		Msg:  "success",
+		Data: result,
 	})
 }
