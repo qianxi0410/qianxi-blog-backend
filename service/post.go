@@ -4,8 +4,8 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/qianxi/blog_backend/db"
-	"github.com/qianxi/blog_backend/model"
+	"github.com/qianxi/blog-backend/db"
+	"github.com/qianxi/blog-backend/model"
 )
 
 type PostService struct{}

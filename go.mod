@@ -1,4 +1,4 @@
-module github.com/qianxi/blog_backend
+module github.com/qianxi/blog-backend
 
 go 1.16
 

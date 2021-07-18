@@ -1,8 +1,6 @@
 package db
 
-import (
-	"github.com/qianxi/blog_backend/model"
-)
+import "github.com/qianxi/blog-backend/model"
 
 type PostDB struct{}
 

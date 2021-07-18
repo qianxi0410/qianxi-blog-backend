@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/qianxi/blog_backend/service"
-	"github.com/qianxi/blog_backend/util"
+	"github.com/qianxi/blog-backend/service"
+	"github.com/qianxi/blog-backend/util"
 )
 
 type PostController struct{}
