@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/qianxi/blog_backend/controller"
 	"github.com/spf13/viper"
@@ -22,7 +23,7 @@ func init() {
 
 func main() {
 	r := gin.Default()
-
+	r.Use(cors.Default())
 	addr, port := viper.GetString("server.address"), viper.GetInt("server.port")
 
 	post := r.Group("/post")
