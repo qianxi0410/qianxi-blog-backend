@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/qianxi/blog_backend/controller"
+	"github.com/qianxi/blog-backend/controller"
 	"github.com/spf13/viper"
 )
 
@@ -30,9 +30,10 @@ func main() {
 	{
 		var pc controller.PostController
 		post.GET("/:id", pc.GetPostById)
+		post.GET("/page/:page/size/:size", pc.GetPostByPageQuery)
 	}
 
 	if err := r.Run(fmt.Sprintf("%s:%d", addr, port)); err != nil {
-		panic("start server failed !")
+		log.Fatalf("start server failed : %v", err)
 	}
 }

@@ -27,3 +27,21 @@ func (p PostController) GetPostById(c *gin.Context) {
 		Data: result,
 	})
 }
+
+func (p PostController) GetPostByPageQuery(c *gin.Context) {
+	page, size := c.Param("page"), c.Param("size")
+	result, err := postService.GetPostByPageQuery(page, size)
+	if err != nil {
+		c.JSON(200, util.Response{
+			Code: util.ERROR,
+			Msg:  err.Error(),
+			Data: nil,
+		})
+		return
+	}
+	c.JSON(200, util.Response{
+		Code: util.OK,
+		Msg:  "success",
+		Data: result,
+	})
+}
