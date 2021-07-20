@@ -31,6 +31,7 @@ func main() {
 		var pc controller.PostController
 		post.GET("/:id", pc.GetPostById)
 		post.GET("/page/:page/size/:size", pc.GetPostByPageQuery)
+		post.GET("/count", pc.GetCount)
 	}
 
 	if err := r.Run(fmt.Sprintf("%s:%d", addr, port)); err != nil {

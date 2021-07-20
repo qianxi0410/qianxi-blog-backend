@@ -45,3 +45,20 @@ func (p PostController) GetPostByPageQuery(c *gin.Context) {
 		Data: result,
 	})
 }
+
+func (p PostController) GetCount(c *gin.Context) {
+	result, err := postService.Count()
+	if err != nil {
+		c.JSON(200, util.Response{
+			Code: util.ERROR,
+			Msg:  err.Error(),
+			Data: nil,
+		})
+		return
+	}
+	c.JSON(200, util.Response{
+		Code: util.OK,
+		Msg:  "success",
+		Data: result,
+	})
+}

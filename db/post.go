@@ -18,3 +18,10 @@ func (p PostDB) GetPostByPageQuery(page, size int) []model.Post {
 
 	return result
 }
+
+func (p PostDB) Count() int64 {
+	var result int64
+	db.Table("posts").Count(&result)
+
+	return result
+}

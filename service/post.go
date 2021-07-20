@@ -57,3 +57,13 @@ func (p PostService) GetPostByPageQuery(page, size string) ([]model.Post, error)
 	}
 	return result, nil
 }
+
+func (p PostService) Count() (int64, error) {
+	result := postDB.Count()
+
+	if result < 0 {
+		return -1, errors.New("oops ! there must be something wrong with count")
+	}
+
+	return result, nil
+}
