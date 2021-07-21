@@ -15,3 +15,9 @@ type Post struct {
 	Path        string    `json:"path"`
 	Tags        string    `json:"tags"`
 }
+
+type PostWrap struct {
+	Post
+	NextTitle string `json:"next_title"`
+	PreTitle  string `json:"pre_title"`
+}

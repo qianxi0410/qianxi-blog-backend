@@ -13,28 +13,35 @@ type PostService struct{}
 
 var postDB db.PostDB
 
-func (p PostService) Get(id string) (model.Post, error) {
+func (p PostService) Get(id string) (model.PostWrap, error) {
+	var result model.PostWrap
 	numberId, err := strconv.Atoi(id)
 	if err != nil {
-		return model.Post{}, err
+		return model.PostWrap{}, err
 	}
 	if numberId < 0 {
-		return model.Post{}, errors.New("oops ! id can not under than zero")
+		return model.PostWrap{}, errors.New("oops ! id can not under than zero")
 	}
 
-	post := postDB.Get(uint(numberId))
+	result.Post = postDB.Get(uint(numberId))
 
-	if post.Title == "" {
-		return post, errors.New("oops ! post not found ")
+	if result.Title == "" {
+		return result, errors.New("oops ! post not found ")
 	}
 
-	f, err := ioutil.ReadFile(post.Path)
+	f, err := ioutil.ReadFile(result.Path)
 	if err != nil {
-		return model.Post{}, err
+		return model.PostWrap{}, err
+	}
+	if result.Pre != -1 {
+		result.PreTitle = postDB.Get(uint(result.Pre)).Title
+	}
+	if result.Next != -1 {
+		result.NextTitle = postDB.Get(uint(result.Next)).Title
 	}
 
-	post.Path = string(f)
-	return post, nil
+	result.Path = string(f)
+	return result, nil
 }
 
 func (p PostService) GetPostByPageQuery(page, size string) ([]model.Post, error) {
