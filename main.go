@@ -36,6 +36,13 @@ func main() {
 		post.GET("/count/tag/:tag", pc.GetCountWithTag)
 	}
 
+	r.GET("/test", func(c *gin.Context) {
+		fmt.Println(c.Query("code"))
+		c.JSON(200, gin.H{
+			"code": c.Query("code"),
+		})
+	})
+
 	if err := r.Run(fmt.Sprintf("%s:%d", addr, port)); err != nil {
 		log.Fatalf("start server failed : %v", err)
 	}
