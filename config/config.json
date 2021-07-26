@@ -8,5 +8,12 @@
         "host": "49.234.98.15",
         "password": "BDB515dab2a7",
         "user": "root"
+    },
+    "github": {
+        "client_id": "eb0d983c962d6461c2cd",
+        "client_secret": "ba188ae374c5e8609f63bcc5e1adf88ca0868727",
+        "redirect_uri": "",
+        "token_url": "https://github.com/login/oauth/access_token",
+        "api_url": "https://api.github.com/user"
     }
 }
