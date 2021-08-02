@@ -42,6 +42,13 @@ func main() {
 		oauth2.GET("/code/:code", oc.GetUserInfo)
 	}
 
+	comment := r.Group("/comment")
+	{
+		var cc controller.CommentController
+		comment.POST("/save", cc.Save)
+		comment.DELETE("/:id", cc.Delete)
+	}
+
 	if err := r.Run(fmt.Sprintf("%s:%d", addr, port)); err != nil {
 		log.Fatalf("start server failed : %v", err)
 	}

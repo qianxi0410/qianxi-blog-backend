@@ -41,6 +41,13 @@ func (p PostService) Get(id string) (model.PostWrap, error) {
 	}
 
 	result.Path = string(f)
+	comments := commentDB.Get(uint(numberId))
+
+	if len(comments) == 0 {
+		result.Comments = make([]model.Comment, 0)
+	} else {
+		result.Comments = append(result.Comments, comments...)
+	}
 	return result, nil
 }
 

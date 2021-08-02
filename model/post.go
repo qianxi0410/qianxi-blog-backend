@@ -18,6 +18,7 @@ type Post struct {
 
 type PostWrap struct {
 	Post
-	NextTitle string `json:"next_title"`
-	PreTitle  string `json:"pre_title"`
+	NextTitle string    `json:"next_title"`
+	PreTitle  string    `json:"pre_title"`
+	Comments  []Comment `json:"comments"`
 }
