@@ -2,10 +2,12 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 
 	"github.com/qianxi/blog-backend/db"
 	"github.com/qianxi/blog-backend/model"
+	rdx "github.com/qianxi/blog-backend/redis"
 )
 
 type CommentService struct{}
@@ -20,8 +22,8 @@ func (c CommentService) Save(comment model.Comment) (uint, error) {
 	if comment.Avatar == "" || comment.Login == "" || comment.Name == "" {
 		return 0, errors.New("oops ! you are missing some info about you ")
 	}
-
 	result := commentDB.Save(comment)
+	rdb.Del(ctx, rdx.Post(fmt.Sprint(comment.PostId)))
 	return result, nil
 }
 

@@ -1,12 +1,16 @@
 package service
 
 import (
+	"encoding/json"
 	"errors"
 	"io/ioutil"
 	"strconv"
+	"time"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/qianxi/blog-backend/db"
 	"github.com/qianxi/blog-backend/model"
+	rdx "github.com/qianxi/blog-backend/redis"
 )
 
 type PostService struct{}
@@ -15,6 +19,14 @@ var postDB db.PostDB
 
 func (p PostService) Get(id string) (model.PostWrap, error) {
 	var result model.PostWrap
+
+	res, err := rdb.Get(ctx, rdx.Post(id)).Result()
+
+	if err != redis.Nil {
+		json.Unmarshal([]byte(res), &result)
+		return result, nil
+	}
+
 	numberId, err := strconv.Atoi(id)
 	if err != nil {
 		return model.PostWrap{}, err
@@ -48,6 +60,10 @@ func (p PostService) Get(id string) (model.PostWrap, error) {
 	} else {
 		result.Comments = append(result.Comments, comments...)
 	}
+
+	r, _ := json.Marshal(result)
+
+	rdb.Set(ctx, rdx.Post(id), r, time.Minute*3)
 	return result, nil
 }
 
@@ -64,12 +80,21 @@ func (p PostService) GetPostByPageQuery(page, size string) ([]model.Post, error)
 	if numberPage < 0 || numberSize < 0 {
 		return nil, errors.New("oops ! page and size can not under than zero")
 	}
+	var result []model.Post
+	res, err := rdb.Get(ctx, rdx.PostWithPageAndSize(numberPage, numberSize)).Result()
 
-	result := postDB.GetPostByPageQuery(numberPage, numberSize)
+	if err != redis.Nil {
+		json.Unmarshal([]byte(res), &result)
+		return result, nil
+	}
+
+	result = postDB.GetPostByPageQuery(numberPage, numberSize)
 
 	if len(result) == 0 {
 		return nil, errors.New("oops ! there must be something err with page query ")
 	}
+	r, _ := json.Marshal(result)
+	rdb.Set(ctx, rdx.PostWithPageAndSize(numberPage, numberSize), r, time.Minute*1)
 	return result, nil
 }
 
@@ -91,20 +116,39 @@ func (p PostService) GetPostByPageAndTagQuery(page, size, tag string) ([]model.P
 		return nil, errors.New("oops ! your tag is empty")
 	}
 
-	result := postDB.GetPostByPageAndTagQuery(numberPage, numberSize, tag)
+	var result []model.Post
+	res, err := rdb.Get(ctx, rdx.PostWithPageAndSizeAndTag(numberPage, numberSize, tag)).Result()
+
+	if err != redis.Nil {
+		json.Unmarshal([]byte(res), &result)
+		return result, nil
+	}
+
+	result = postDB.GetPostByPageAndTagQuery(numberPage, numberSize, tag)
 
 	if len(result) == 0 {
 		return nil, errors.New("oops ! there must be something err with page query ")
 	}
+	r, _ := json.Marshal(result)
+
+	rdb.Set(ctx, rdx.PostWithPageAndSizeAndTag(numberPage, numberSize, tag), r, time.Minute*1)
+
 	return result, nil
 }
 
 func (p PostService) Count() (int64, error) {
+	res, err := rdb.Get(ctx, rdx.PostCount()).Result()
+	if err != redis.Nil {
+		r, _ := strconv.Atoi(res)
+		return int64(r), nil
+	}
 	result := postDB.Count()
 
 	if result < 0 {
 		return -1, errors.New("oops ! there must be something wrong with count ")
 	}
+
+	rdb.Set(ctx, rdx.PostCount(), result, time.Hour)
 
 	return result, nil
 }
@@ -114,10 +158,18 @@ func (p PostService) CountWithTag(tag string) (int64, error) {
 		return -1, errors.New("oops ! your tag is empty ")
 	}
 
+	res, err := rdb.Get(ctx, rdx.TagCount(tag)).Result()
+
+	if err != redis.Nil {
+		r, _ := strconv.Atoi(res)
+		return int64(r), nil
+	}
+
 	result := postDB.CountWithTag(tag)
 
 	if result < 0 {
 		return -1, errors.New("oops ! there must be something wrong with tag count ")
 	}
+	rdb.Set(ctx, rdx.TagCount(tag), result, time.Hour)
 	return result, nil
 }
