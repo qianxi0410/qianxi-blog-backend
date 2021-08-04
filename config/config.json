@@ -15,5 +15,9 @@
         "redirect_uri": "",
         "token_url": "https://github.com/login/oauth/access_token",
         "api_url": "https://api.github.com/user"
+    },
+    "redis": {
+        "addr": "49.234.98.15:6379",
+        "password": "qianxi0410"
     }
 }
