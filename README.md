@@ -1,5 +1,1 @@
-# qianxi-blog-backend
-
-## developing✊
-
-~~just for test~~
+this is the backend api for [myblog](q1anxi.top)
