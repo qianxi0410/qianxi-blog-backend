@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+	title: "post api"
+	desc: "about post's api func'"
+	author: "qianxi"
+	email: "liuyihan0410@gmail.com"
+	version: "v1"
+)
+
+type (
+	CountReq struct{}
+
+	CountWithTagReq {
+		Tag string `json:"tags",path:"tag"`
+	}
+
+	CountReply {
+		Count int64 `json:"count"`
+	}
+)
+
+service post-api {
+	@handler Count
+	get /post/count (CountReq) returns (CountReply)
+}
+
+service post-api {
+	@handler CountWithTag
+	get /post/count/:tag (CountWithTagReq) returns (CountReply)
+}
