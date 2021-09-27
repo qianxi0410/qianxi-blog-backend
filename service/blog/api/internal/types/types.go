@@ -5,7 +5,7 @@ type CountReq struct {
 }
 
 type CountWithTagReq struct {
-	Tag string `json:"tags",path:"tag"`
+	Tag string `json:"tag",path:"tag"`
 }
 
 type CountReply struct {
