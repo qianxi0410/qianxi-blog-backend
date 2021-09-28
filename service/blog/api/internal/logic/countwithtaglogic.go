@@ -23,8 +23,8 @@ func NewCountWithTagLogic(ctx context.Context, svcCtx *svc.ServiceContext) Count
 	}
 }
 
-func (l *CountWithTagLogic) CountWithTag(req types.CountWithTagReq) (*types.CountReply, error) {
+func (l *CountWithTagLogic) CountWithTag(req types.CountWithTagReq) (*types.Reply, error) {
 	// todo: add your logic here and delete this line
 
-	return &types.CountReply{}, nil
+	return &types.Reply{}, nil
 }

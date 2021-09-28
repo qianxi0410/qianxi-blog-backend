@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"errors"
 
 	"qianxi-blog/service/blog/api/internal/svc"
 	"qianxi-blog/service/blog/api/internal/types"
@@ -23,8 +24,15 @@ func NewCountLogic(ctx context.Context, svcCtx *svc.ServiceContext) CountLogic {
 	}
 }
 
-func (l *CountLogic) Count(req types.CountReq) (*types.CountReply, error) {
-	// todo: add your logic here and delete this line
+func (l *CountLogic) Count() (*types.Reply, error) {
+	res, err := l.svcCtx.PostModel.Count()
 
-	return &types.CountReply{}, nil
+	if err != nil {
+		return nil, errors.New("查询博客总数出错")
+	}
+
+	return &types.Reply{
+		Code: 777,
+		Data: res,
+	}, nil
 }

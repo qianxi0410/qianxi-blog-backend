@@ -9,8 +9,6 @@ info(
 )
 
 type (
-	CountReq struct{}
-
 	CountWithTagReq {
 		Tag string `json:"tag",path:"tag"`
 	}
@@ -18,14 +16,20 @@ type (
 	CountReply {
 		Count int64 `json:"count"`
 	}
+
+	Reply {
+		Code int         `json:"code"`
+		Msg  string      `json:"msg"`
+		Data interface{} `json:"data"`
+	}
 )
 
 service post-api {
 	@handler Count
-	get /post/count (CountReq) returns (CountReply)
+	get /post/count () returns (Reply)
 }
 
 service post-api {
 	@handler CountWithTag
-	get /post/count/:tag (CountWithTagReq) returns (CountReply)
+	get /post/count/:tag (CountWithTagReq) returns (Reply)
 }
