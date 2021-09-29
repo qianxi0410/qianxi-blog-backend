@@ -19,7 +19,7 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/post/count/:tag",
+				Path:    "/post/count/tag/:tag",
 				Handler: CountWithTagHandler(serverCtx),
 			},
 		},

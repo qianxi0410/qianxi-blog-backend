@@ -25,5 +25,5 @@ service post-api {
 	get /post/count () returns (Reply)
 	
 	@handler CountWithTag
-	get /post/count/:tag (CountWithTagReq) returns (Reply)
+	get /post/count/tag/:tag (CountWithTagReq) returns (Reply)
 }
