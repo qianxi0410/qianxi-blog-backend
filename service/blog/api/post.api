@@ -13,6 +13,21 @@ type (
 		Tag string `path:"tag"`
 	}
 
+	PageReq {
+		Page int64 `path:"page"`
+		Size int64 `path:"size"`
+	}
+
+	PageWithTagReq {
+		Page int64  `path:"page"`
+		Size int64  `path:"size"`
+		Tag  string `path:"tag"`
+	}
+
+	PostReq {
+		Id int64 `path:"id"`
+	}
+
 	Reply {
 		Code int         `json:"code"`
 		Msg  string      `json:"msg"`
@@ -26,4 +41,13 @@ service post-api {
 	
 	@handler CountWithTag
 	get /post/count/tag/:tag (CountWithTagReq) returns (Reply)
+	
+	@handler Posts
+	get /post/page/:page/size/:size (PageReq) returns (Reply)
+	
+	@handler PostsWithTag
+	get /post/page/:page/size/:size/tag/:tag (PageWithTagReq) returns (Reply)
+	
+	@handler Post
+	get /post/id/:id (PostReq) returns (Reply)
 }

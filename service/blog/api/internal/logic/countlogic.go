@@ -42,7 +42,7 @@ func (l *CountLogic) Count() (*types.Reply, error) {
 
 	count, err = l.svcCtx.PostModel.Count()
 	if err != nil {
-		return nil, errors.New("查询博客总数出错")
+		return nil, errors.New("查询文章总数时出错: " + err.Error())
 	}
 
 	l.svcCtx.Redis.Set(context.Background(), key.PostsCount(), count, 1*time.Minute)

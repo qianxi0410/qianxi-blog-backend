@@ -43,7 +43,7 @@ func (l *CountWithTagLogic) CountWithTag(req types.CountWithTagReq) (*types.Repl
 
 	count, err = l.svcCtx.PostModel.CountWtihTag(req.Tag)
 	if err != nil {
-		return nil, errors.New("查询博客总数出错")
+		return nil, errors.New("查询带标签文章总数时出错" + err.Error())
 	}
 
 	l.svcCtx.Redis.Set(context.Background(), key.PostsCountWithTag(req.Tag), count, 1*time.Minute)

@@ -5,6 +5,21 @@ type CountWithTagReq struct {
 	Tag string `path:"tag"`
 }
 
+type PageReq struct {
+	Page int64 `path:"page"`
+	Size int64 `path:"size"`
+}
+
+type PageWithTagReq struct {
+	Page int64  `path:"page"`
+	Size int64  `path:"size"`
+	Tag  string `path:"tag"`
+}
+
+type PostReq struct {
+	Id int64 `path:"id"`
+}
+
 type Reply struct {
 	Code int         `json:"code"`
 	Msg  string      `json:"msg"`
