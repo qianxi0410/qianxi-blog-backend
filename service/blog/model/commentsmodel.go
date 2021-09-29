@@ -28,6 +28,7 @@ type (
 		FindOne(id int64) (*Comments, error)
 		Update(data Comments) error
 		Delete(id int64) error
+		CommentsWithPostId(id int64) ([]Comments, error)
 	}
 
 	defaultCommentsModel struct {
@@ -53,6 +54,18 @@ func NewCommentsModel(conn sqlx.SqlConn, c cache.CacheConf) CommentsModel {
 		CachedConn: sqlc.NewConn(conn, c),
 		table:      "`comments`",
 	}
+}
+
+func (m *defaultCommentsModel) CommentsWithPostId(postId int64) ([]Comments, error) {
+	var ret []Comments
+
+	query := fmt.Sprintf("select * from %s where post_id = %d", m.table, postId)
+	err := m.QueryRowsNoCache(&ret, query)
+	if err != nil {
+		return nil, err
+	}
+
+	return ret, nil
 }
 
 func (m *defaultCommentsModel) Insert(data Comments) (sql.Result, error) {

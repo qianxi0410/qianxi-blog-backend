@@ -30,6 +30,9 @@ type (
 		Delete(id int64) error
 		Count() (int64, error)
 		CountWtihTag(tag string) (int64, error)
+		Posts(offset, size int64) ([]Posts, error)
+		PostsWithTag(offset, size int64, tag string) ([]Posts, error)
+		Title(id int64) (string, error)
 	}
 
 	defaultPostsModel struct {
@@ -57,6 +60,41 @@ func NewPostsModel(conn sqlx.SqlConn, c cache.CacheConf) PostsModel {
 		CachedConn: sqlc.NewConn(conn, c),
 		table:      "`posts`",
 	}
+}
+
+func (m *defaultPostsModel) Title(id int64) (string, error) {
+	var ret string
+
+	query := fmt.Sprintf("select title from %s where id = %d", m.table, id)
+	err := m.QueryRowNoCache(&ret, query)
+
+	if err != nil {
+		return "", err
+	}
+
+	return ret, nil
+}
+
+func (m *defaultPostsModel) PostsWithTag(offset, size int64, tag string) ([]Posts, error) {
+	var ret []Posts
+	query := fmt.Sprintf("select * from %s where tags like '%%%s%%' limit %d offset %d", m.table, tag, size, offset)
+	err := m.QueryRowsNoCache(&ret, query)
+
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+func (m *defaultPostsModel) Posts(offset, size int64) ([]Posts, error) {
+	var ret []Posts
+	query := fmt.Sprintf("select * from %s limit %d offset %d", m.table, size, offset)
+	err := m.QueryRowsNoCache(&ret, query)
+
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
 }
 
 func (m *defaultPostsModel) CountWtihTag(tag string) (int64, error) {
