@@ -30,7 +30,7 @@ func NewPostsWithTagLogic(ctx context.Context, svcCtx *svc.ServiceContext) Posts
 }
 
 func (l *PostsWithTagLogic) PostsWithTag(req types.PageWithTagReq) (*types.Reply, error) {
-	var posts []*model.Posts
+	var posts []model.Posts
 
 	if req.Page <= 0 || req.Size <= 0 {
 		return nil, errors.New("分页查询的参数不能为负")
@@ -40,9 +40,9 @@ func (l *PostsWithTagLogic) PostsWithTag(req types.PageWithTagReq) (*types.Reply
 		return nil, errors.New("传入的标签不能为空")
 	}
 
-	jsonBytes, err := l.svcCtx.Redis.Get(context.Background(), key.PostsWithTag(req.Page, req.Size, req.Tag)).Bytes()
+	bytes, err := l.svcCtx.Redis.Get(context.Background(), key.PostsWithTag(req.Page, req.Size, req.Tag)).Bytes()
 	if err != redis.Nil {
-		err := json.Unmarshal(jsonBytes, &posts)
+		err := json.Unmarshal(bytes, &posts)
 		if err != nil {
 			return nil, errors.New("分页查询文章时出错: " + err.Error())
 		}
@@ -54,13 +54,18 @@ func (l *PostsWithTagLogic) PostsWithTag(req types.PageWithTagReq) (*types.Reply
 
 	offset := (req.Page - 1) * req.Size
 
-	posts, err = l.svcCtx.PostModel.Posts(offset, req.Size)
+	posts, err = l.svcCtx.PostModel.PostsWithTag(offset, req.Size, req.Tag)
 
 	if err != nil {
 		return nil, errors.New("分页查询文章时出错: " + err.Error())
 	}
 
-	l.svcCtx.Redis.Set(context.Background(), key.Posts(req.Page, req.Size), posts, 10*time.Minute)
+	marshal, err := json.Marshal(posts)
+	if err != nil {
+		return nil, errors.New("分页查询文章时出错: " + err.Error())
+	}
+
+	l.svcCtx.Redis.Set(context.Background(), key.PostsWithTag(req.Page, req.Size, req.Tag), marshal, 10*time.Minute)
 
 	return &types.Reply{
 		Code: 666,

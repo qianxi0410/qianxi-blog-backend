@@ -29,7 +29,7 @@ func NewPostsLogic(ctx context.Context, svcCtx *svc.ServiceContext) PostsLogic {
 }
 
 func (l *PostsLogic) Posts(req types.PageReq) (*types.Reply, error) {
-	var posts []*model.Posts
+	var posts []model.Posts
 
 	if req.Page <= 0 || req.Size <= 0 {
 		return nil, errors.New("分页查询的参数不能为负")
@@ -55,13 +55,13 @@ func (l *PostsLogic) Posts(req types.PageReq) (*types.Reply, error) {
 		return nil, errors.New("分页查询文章时出错: " + err.Error())
 	}
 
-	bytes, err := json.Marshal(posts)
+	marshal, err := json.Marshal(posts)
 
 	if err != nil {
 		return nil, errors.New("分页查询文章时出错: " + err.Error())
 	}
 
-	l.svcCtx.Redis.Set(context.Background(), key.Posts(req.Page, req.Size), bytes, 10*time.Minute)
+	l.svcCtx.Redis.Set(context.Background(), key.Posts(req.Page, req.Size), marshal, 10*time.Minute)
 
 	return &types.Reply{
 		Code: 666,

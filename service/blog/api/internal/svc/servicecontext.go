@@ -10,17 +10,19 @@ import (
 )
 
 type ServiceContext struct {
-	Config    config.Config
-	PostModel model.PostsModel
-	Redis     *redis.Client
+	Config       config.Config
+	PostModel    model.PostsModel
+	CommentModel model.CommentsModel
+	Redis        *redis.Client
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	conn := sqlx.NewMysql(c.Mysql.DataSource)
 
 	return &ServiceContext{
-		Config:    c,
-		PostModel: model.NewPostsModel(conn, c.CacheRedis),
+		Config:       c,
+		PostModel:    model.NewPostsModel(conn, c.CacheRedis),
+		CommentModel: model.NewCommentsModel(conn, c.CacheRedis),
 		Redis: redis.NewClient(&redis.Options{
 			Addr:     c.Redis.Host,
 			Password: c.Redis.Pass,
