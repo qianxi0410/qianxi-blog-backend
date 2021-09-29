@@ -1,0 +1,82 @@
+syntax = "v1"
+
+info(
+	title: "blog api"
+	desc: "blog's api func'"
+	author: "qianxi"
+	email: "liuyihan0410@gmail.com"
+	version: "v1"
+)
+
+type Reply {
+	Code int         `json:"code"`
+	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
+}
+
+type (
+	CountWithTagReq {
+		Tag string `path:"tag"`
+	}
+
+	PageReq {
+		Page int64 `path:"page"`
+		Size int64 `path:"size"`
+	}
+
+	PageWithTagReq {
+		Page int64  `path:"page"`
+		Size int64  `path:"size"`
+		Tag  string `path:"tag"`
+	}
+
+	PostReq {
+		Id int64 `path:"id"`
+	}
+)
+
+@server(
+	group: postApi
+)
+service blog-api {
+	@handler Count
+	get /post/count () returns (Reply)
+	
+	@handler CountWithTag
+	get /post/count/tag/:tag (CountWithTagReq) returns (Reply)
+	
+	@handler Posts
+	get /post/page/:page/size/:size (PageReq) returns (Reply)
+	
+	@handler PostsWithTag
+	get /post/page/:page/size/:size/tag/:tag (PageWithTagReq) returns (Reply)
+	
+	@handler Post
+	get /post/id/:id (PostReq) returns (Reply)
+}
+
+type (
+	DeleteReq {
+		Id    int64  `path:"id"`
+		Login string `json:"login,optional"`
+	}
+
+	SaveReq {
+		Content string `json:"content"`
+		Login   string `json:"login"`
+		Name    string `json:"name"`
+		Avatar  string `json:"avatar"`
+		PostId  int64  `json:"post_id"`
+	}
+)
+
+@server(
+	group: commentApi
+)
+service blog-api {
+	@handler Save
+	post /comment/save (SaveReq) returns (Reply)
+	
+	@handler Delete
+	delete /comment/id/:id (DeleteReq) returns (Reply)
+}

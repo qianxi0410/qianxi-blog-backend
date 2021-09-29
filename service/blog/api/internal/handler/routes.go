@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	commentApi "qianxi-blog/service/blog/api/internal/handler/commentApi"
 	postApi "qianxi-blog/service/blog/api/internal/handler/postApi"
 	"qianxi-blog/service/blog/api/internal/svc"
 
@@ -37,6 +38,21 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/post/id/:id",
 				Handler: postApi.PostHandler(serverCtx),
+			},
+		},
+	)
+
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/comment/save",
+				Handler: commentApi.SaveHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/comment/id/:id",
+				Handler: commentApi.DeleteHandler(serverCtx),
 			},
 		},
 	)
