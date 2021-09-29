@@ -2,11 +2,7 @@
 package types
 
 type CountWithTagReq struct {
-	Tag string `json:"tag",path:"tag"`
-}
-
-type CountReply struct {
-	Count int64 `json:"count"`
+	Tag string `path:"tag"`
 }
 
 type Reply struct {

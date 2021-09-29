@@ -10,11 +10,7 @@ info(
 
 type (
 	CountWithTagReq {
-		Tag string `json:"tag",path:"tag"`
-	}
-
-	CountReply {
-		Count int64 `json:"count"`
+		Tag string `path:"tag"`
 	}
 
 	Reply {
@@ -27,9 +23,7 @@ type (
 service post-api {
 	@handler Count
 	get /post/count () returns (Reply)
-}
-
-service post-api {
+	
 	@handler CountWithTag
 	get /post/count/:tag (CountWithTagReq) returns (Reply)
 }

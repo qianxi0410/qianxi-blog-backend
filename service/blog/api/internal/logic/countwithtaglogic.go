@@ -2,10 +2,14 @@ package logic
 
 import (
 	"context"
+	"errors"
+	"time"
 
+	"qianxi-blog/common/key"
 	"qianxi-blog/service/blog/api/internal/svc"
 	"qianxi-blog/service/blog/api/internal/types"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/tal-tech/go-zero/core/logx"
 )
 
@@ -24,7 +28,28 @@ func NewCountWithTagLogic(ctx context.Context, svcCtx *svc.ServiceContext) Count
 }
 
 func (l *CountWithTagLogic) CountWithTag(req types.CountWithTagReq) (*types.Reply, error) {
-	// todo: add your logic here and delete this line
+	if len(req.Tag) == 0 {
+		return nil, errors.New("传入的标签为空")
+	}
 
-	return &types.Reply{}, nil
+	count, err := l.svcCtx.Redis.Get(context.Background(), key.PostsCountWithTag(req.Tag)).Int64()
+
+	if err != redis.Nil {
+		return &types.Reply{
+			Code: 666,
+			Data: count,
+		}, nil
+	}
+
+	count, err = l.svcCtx.PostModel.CountWtihTag(req.Tag)
+	if err != nil {
+		return nil, errors.New("查询博客总数出错")
+	}
+
+	l.svcCtx.Redis.Set(context.Background(), key.PostsCountWithTag(req.Tag), count, 1*time.Minute)
+
+	return &types.Reply{
+		Code: 666,
+		Data: count,
+	}, nil
 }
