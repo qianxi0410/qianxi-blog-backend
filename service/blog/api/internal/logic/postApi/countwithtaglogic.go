@@ -1,4 +1,4 @@
-package logic
+package postApi
 
 import (
 	"context"

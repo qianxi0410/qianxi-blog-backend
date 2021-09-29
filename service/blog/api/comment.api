@@ -1,0 +1,26 @@
+syntax = "v1"
+
+info(
+    title: "comment api"
+    desc: "about comment's api func'"
+    author: "qianxi"
+    email: "liuyihan0410@gmail.com"
+    version: "v1"
+)
+
+type (
+    Reply {
+        Code int `json:"code"`
+        Msg string `json:"msg"`
+        Data interface{} `json:"data"`
+    }
+)
+
+
+@server(
+    group: commentApi
+)
+service comment-api {
+    @handler handlerName // TODO: replace handler name and delete this comment
+    get /users/id/:userId (request) returns (response)
+}

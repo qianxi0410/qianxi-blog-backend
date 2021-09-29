@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	postApi "qianxi-blog/service/blog/api/internal/handler/postApi"
 	"qianxi-blog/service/blog/api/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
@@ -15,27 +16,27 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodGet,
 				Path:    "/post/count",
-				Handler: CountHandler(serverCtx),
+				Handler: postApi.CountHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/post/count/tag/:tag",
-				Handler: CountWithTagHandler(serverCtx),
+				Handler: postApi.CountWithTagHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/post/page/:page/size/:size",
-				Handler: PostsHandler(serverCtx),
+				Handler: postApi.PostsHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/post/page/:page/size/:size/tag/:tag",
-				Handler: PostsWithTagHandler(serverCtx),
+				Handler: postApi.PostsWithTagHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/post/id/:id",
-				Handler: PostHandler(serverCtx),
+				Handler: postApi.PostHandler(serverCtx),
 			},
 		},
 	)

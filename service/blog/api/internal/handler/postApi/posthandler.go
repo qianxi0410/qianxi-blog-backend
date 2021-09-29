@@ -1,10 +1,10 @@
-package handler
+package postApi
 
 import (
 	"net/http"
 
 	"github.com/tal-tech/go-zero/rest/httpx"
-	"qianxi-blog/service/blog/api/internal/logic"
+	"qianxi-blog/service/blog/api/internal/logic/postApi"
 	"qianxi-blog/service/blog/api/internal/svc"
 	"qianxi-blog/service/blog/api/internal/types"
 )
@@ -17,7 +17,7 @@ func PostHandler(ctx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := logic.NewPostLogic(r.Context(), ctx)
+		l := postApi.NewPostLogic(r.Context(), ctx)
 		resp, err := l.Post(req)
 		if err != nil {
 			httpx.Error(w, err)
