@@ -1,0 +1,112 @@
+{
+  "version": 2,
+  "name": "gateway",
+  "port": 8080,
+  "timeout": "10s",
+  "cache_ttl": "3600s",
+  "host": [
+    "http://127.0.0.1:9998"
+  ],
+  "endpoints": [
+    {
+      "endpoint": "blog/post/id/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": [
+            "http://127.0.0.1:9998"
+          ],
+          "url_pattern": "/post/id/{id}"
+        }
+      ],
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "blog/post/count",
+      "method": "GET",
+      "backend": [
+        {
+          "host": [
+            "http://127.0.0.1:9998"
+          ],
+          "url_pattern": "/post/count"
+        }
+      ],
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "blog/post/count/tag/{tag}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": [
+            "http://127.0.0.1:9998"
+          ],
+          "url_pattern": "/post/count/tag/{tag}"
+        }
+      ],
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "blog/post/page/{page}/size/{size}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": [
+            "http://127.0.0.1:9998"
+          ],
+          "url_pattern": "/post/page/{page}/size/{size}"
+        }
+      ],
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "blog/post/page/{page}/size/{size}/tag/{tag}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": [
+            "http://127.0.0.1:9998"
+          ],
+          "url_pattern": "/post/page/{page}/size/{size}/tag/{tag}"
+        }
+      ],
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "blog/comment/save",
+      "method": "POST",
+      "backend": [
+        {
+          "host": [
+            "http://127.0.0.1:9998"
+          ],
+          "url_pattern": "/comment/save"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "blog/comment/id/{id}/login/{login}",
+      "method": "DELETE",
+      "backend": [
+        {
+          "host": [
+            "http://127.0.0.1:9998"
+          ],
+          "url_pattern": "/comment/id/{id}/login/{login}"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    }
+  ]
+}
