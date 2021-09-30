@@ -51,7 +51,7 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodDelete,
-				Path:    "/comment/id/:id",
+				Path:    "/comment/id/:id/login/:login",
 				Handler: commentApi.DeleteHandler(serverCtx),
 			},
 		},

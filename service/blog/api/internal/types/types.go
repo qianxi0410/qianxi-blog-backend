@@ -28,7 +28,7 @@ type PostReq struct {
 
 type DeleteReq struct {
 	Id    int64  `path:"id"`
-	Login string `json:"login,optional"`
+	Login string `path:"login"`
 }
 
 type SaveReq struct {

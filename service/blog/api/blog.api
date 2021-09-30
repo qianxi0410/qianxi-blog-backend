@@ -58,7 +58,7 @@ service blog-api {
 type (
 	DeleteReq {
 		Id    int64  `path:"id"`
-		Login string `json:"login,optional"`
+		Login string `path:"login"`
 	}
 
 	SaveReq {
@@ -78,5 +78,5 @@ service blog-api {
 	post /comment/save (SaveReq) returns (Reply)
 	
 	@handler Delete
-	delete /comment/id/:id (DeleteReq) returns (Reply)
+	delete /comment/id/:id/login/:login (DeleteReq) returns (Reply)
 }
