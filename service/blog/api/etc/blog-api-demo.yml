@@ -8,3 +8,8 @@ CacheRedis:
   - Host: $host
     Pass: $pass
     Type: node
+
+Redis:
+  Host: $host
+  Pass: $pass
+  Type: node
