@@ -16,8 +16,8 @@ import (
 var (
 	postsFieldNames          = builderx.RawFieldNames(&Posts{})
 	postsRows                = strings.Join(postsFieldNames, ",")
-	postsRowsExpectAutoSet   = strings.Join(stringx.Remove(postsFieldNames, "`create_time`", "`update_time`"), ",")
-	postsRowsWithPlaceHolder = strings.Join(stringx.Remove(postsFieldNames, "`id`", "`create_time`", "`update_time`"), "=?,") + "=?"
+	postsRowsExpectAutoSet   = strings.Join(stringx.Remove(postsFieldNames, "`id`", "`created_at`", "`updated_at`"), ",")
+	postsRowsWithPlaceHolder = strings.Join(stringx.Remove(postsFieldNames, "`id`", "`created_at`", "`updated_at`"), "=?,") + "=?"
 
 	cacheBlogPostsIdPrefix = "cache:blog:posts:id:"
 )

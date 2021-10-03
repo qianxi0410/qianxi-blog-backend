@@ -16,8 +16,8 @@ import (
 var (
 	commentsFieldNames          = builderx.RawFieldNames(&Comments{})
 	commentsRows                = strings.Join(commentsFieldNames, ",")
-	commentsRowsExpectAutoSet   = strings.Join(stringx.Remove(commentsFieldNames, "`id`", "`create_time`", "`update_time`"), ",")
-	commentsRowsWithPlaceHolder = strings.Join(stringx.Remove(commentsFieldNames, "`id`", "`create_time`", "`update_time`"), "=?,") + "=?"
+	commentsRowsExpectAutoSet   = strings.Join(stringx.Remove(commentsFieldNames, "`id`", "`created_at`", "`updated_at`"), ",")
+	commentsRowsWithPlaceHolder = strings.Join(stringx.Remove(commentsFieldNames, "`id`", "`created_at`", "`updated_at`"), "=?,") + "=?"
 
 	cacheBlogCommentsIdPrefix = "cache:blog:comments:id:"
 )
