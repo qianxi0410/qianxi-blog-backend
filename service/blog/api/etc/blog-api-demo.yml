@@ -13,3 +13,9 @@ Redis:
   Host: $host
   Pass: $pass
   Type: node
+
+Github:
+  ApiUrl: $ApiUrl
+  TokenUrl: $TokenUrl
+  ClientId: $ClientId
+  ClientSecret: $ClientSecret

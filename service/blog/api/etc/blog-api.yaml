@@ -14,3 +14,9 @@ Redis:
   Host: 49.234.98.15:6379
   Pass: qianxi0410
   Type: node
+
+Github:
+  ApiUrl: https://api.github.com/user
+  TokenUrl: https://github.com/login/oauth/access_token
+  ClientId: eb0d983c962d6461c2cd
+  ClientSecret: ba188ae374c5e8609f63bcc5e1adf88ca0868727

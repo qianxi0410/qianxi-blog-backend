@@ -70,6 +70,12 @@ type (
 	}
 )
 
+type (
+	Oauth2Req {
+		Code string `path:"code"`
+	}
+)
+
 @server(
 	group: commentApi
 )
@@ -79,4 +85,12 @@ service blog-api {
 	
 	@handler Delete
 	delete /comment/id/:id/login/:login (DeleteReq) returns (Reply)
+}
+
+@server(
+	group: oauth2Api
+)
+service blog-api {
+	@handler Oauth2
+	get /oauth2/code/:code (Oauth2Req) returns (Reply)
 }

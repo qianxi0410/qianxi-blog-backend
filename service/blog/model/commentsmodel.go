@@ -37,15 +37,14 @@ type (
 	}
 
 	Comments struct {
-		Id         int64     `db:"id"`
-		CreatedAt  time.Time `db:"created_at"`
-		UpdateedAt time.Time `db:"updateed_at"`
-		DeletedAt  time.Time `db:"deleted_at"`
-		Content    string    `db:"content"`
-		Login      string    `db:"login"`
-		Name       string    `db:"name"`
-		Avatar     string    `db:"avatar"`
-		PostId     int64     `db:"post_id"`
+		Id         int64     `db:"id" json:"id"`
+		CreatedAt  time.Time `db:"created_at" json:"created_at"`
+		UpdateedAt time.Time `db:"updateed_at" json:"updateed_at"`
+		Content    string    `db:"content" json:"content"`
+		Login      string    `db:"login" json:"login"`
+		Name       string    `db:"name" json:"name"`
+		Avatar     string    `db:"avatar" json:"avatar"`
+		PostId     int64     `db:"post_id" json:"post_id"`
 	}
 )
 
@@ -69,8 +68,8 @@ func (m *defaultCommentsModel) CommentsWithPostId(postId int64) ([]Comments, err
 }
 
 func (m *defaultCommentsModel) Insert(data Comments) (sql.Result, error) {
-	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?)", m.table, commentsRowsExpectAutoSet)
-	ret, err := m.ExecNoCache(query, data.CreatedAt, data.UpdateedAt, data.DeletedAt, data.Content, data.Login, data.Name, data.Avatar, data.PostId)
+	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?)", m.table, commentsRowsExpectAutoSet)
+	ret, err := m.ExecNoCache(query, data.CreatedAt, data.UpdateedAt, data.Content, data.Login, data.Name, data.Avatar, data.PostId)
 
 	return ret, err
 }
@@ -96,7 +95,7 @@ func (m *defaultCommentsModel) Update(data Comments) error {
 	blogCommentsIdKey := fmt.Sprintf("%s%v", cacheBlogCommentsIdPrefix, data.Id)
 	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, commentsRowsWithPlaceHolder)
-		return conn.Exec(query, data.CreatedAt, data.UpdateedAt, data.DeletedAt, data.Content, data.Login, data.Name, data.Avatar, data.PostId, data.Id)
+		return conn.Exec(query, data.CreatedAt, data.UpdateedAt, data.Content, data.Login, data.Name, data.Avatar, data.PostId, data.Id)
 	}, blogCommentsIdKey)
 	return err
 }

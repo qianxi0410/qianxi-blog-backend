@@ -18,4 +18,12 @@ type Config struct {
 
 	// redis
 	Redis redis.RedisConf
+
+	// github
+	Github struct {
+		ApiUrl       string
+		TokenUrl     string
+		ClientId     string
+		ClientSecret string
+	}
 }

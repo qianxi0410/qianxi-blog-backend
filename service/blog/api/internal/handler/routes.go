@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	commentApi "qianxi-blog/service/blog/api/internal/handler/commentApi"
+	oauth2Api "qianxi-blog/service/blog/api/internal/handler/oauth2Api"
 	postApi "qianxi-blog/service/blog/api/internal/handler/postApi"
 	"qianxi-blog/service/blog/api/internal/svc"
 
@@ -53,6 +54,16 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodDelete,
 				Path:    "/comment/id/:id/login/:login",
 				Handler: commentApi.DeleteHandler(serverCtx),
+			},
+		},
+	)
+
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/oauth2/code/:code",
+				Handler: oauth2Api.Oauth2Handler(serverCtx),
 			},
 		},
 	)

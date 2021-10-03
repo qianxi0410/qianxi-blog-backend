@@ -45,14 +45,21 @@ func (l *SaveLogic) Save(req types.SaveReq) (*types.Reply, error) {
 		Avatar:     req.Avatar,
 		PostId:     req.PostId,
 	}
-	_, err := l.svcCtx.CommentModel.Insert(commnet)
+	ret, err := l.svcCtx.CommentModel.Insert(commnet)
+
 	l.svcCtx.Redis.ExpireAt(context.Background(), key.Post(req.PostId), time.Now())
 
 	if err != nil {
 		return nil, errors.New("评论失败: " + err.Error())
 	}
 
+	id, err := ret.LastInsertId()
+	if err != nil {
+		return nil, errors.New("评论失败: " + err.Error())
+	}
+
 	return &types.Reply{
 		Code: 666,
+		Data: id,
 	}, nil
 }

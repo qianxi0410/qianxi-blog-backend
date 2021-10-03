@@ -38,3 +38,7 @@ type SaveReq struct {
 	Avatar  string `json:"avatar"`
 	PostId  int64  `json:"post_id"`
 }
+
+type Oauth2Req struct {
+	Code string `path:"code"`
+}

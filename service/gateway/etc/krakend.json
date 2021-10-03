@@ -36,7 +36,7 @@
       "backend": [
         {
           "host": [
-            "http://127.0.0.1:9998"
+            "http://host.docker.internal:9998"
           ],
           "url_pattern": "/post/id/{id}"
         }
@@ -50,7 +50,7 @@
       "backend": [
         {
           "host": [
-            "http://127.0.0.1:9998"
+            "http://host.docker.internal:9998"
           ],
           "url_pattern": "/post/count"
         }
@@ -64,7 +64,7 @@
       "backend": [
         {
           "host": [
-            "http://127.0.0.1:9998"
+            "http://host.docker.internal:9998"
           ],
           "url_pattern": "/post/count/tag/{tag}"
         }
@@ -78,7 +78,7 @@
       "backend": [
         {
           "host": [
-            "http://127.0.0.1:9998"
+            "http://host.docker.internal:9998"
           ],
           "url_pattern": "/post/page/{page}/size/{size}"
         }
@@ -92,7 +92,7 @@
       "backend": [
         {
           "host": [
-            "http://127.0.0.1:9998"
+            "http://host.docker.internal:9998"
           ],
           "url_pattern": "/post/page/{page}/size/{size}/tag/{tag}"
         }
@@ -106,7 +106,7 @@
       "backend": [
         {
           "host": [
-            "http://127.0.0.1:9998"
+            "http://host.docker.internal:9998"
           ],
           "url_pattern": "/comment/save"
         }
@@ -121,7 +121,7 @@
       "backend": [
         {
           "host": [
-            "http://127.0.0.1:9998"
+            "http://host.docker.internal:9998"
           ],
           "url_pattern": "/comment/id/{id}/login/{login}"
         }
