@@ -3,6 +3,7 @@ package commentApi
 import (
 	"context"
 	"errors"
+	"fmt"
 	"qianxi-blog/common/key"
 	"qianxi-blog/service/blog/model"
 	"time"
@@ -47,13 +48,14 @@ func (l *SaveLogic) Save(req types.SaveReq) (*types.Reply, error) {
 	}
 	ret, err := l.svcCtx.CommentModel.Insert(commnet)
 
-	l.svcCtx.Redis.ExpireAt(context.Background(), key.Post(req.PostId), time.Now())
-
 	if err != nil {
 		return nil, errors.New("评论失败: " + err.Error())
 	}
 
+	l.svcCtx.Redis.ExpireAt(context.Background(), key.Post(req.PostId), time.Now())
+
 	id, err := ret.LastInsertId()
+	fmt.Println(id)
 	if err != nil {
 		return nil, errors.New("评论失败: " + err.Error())
 	}

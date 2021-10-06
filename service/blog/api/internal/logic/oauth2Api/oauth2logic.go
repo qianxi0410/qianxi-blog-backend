@@ -67,8 +67,10 @@ func (l *Oauth2Logic) Oauth2(req types.Oauth2Req) (*types.Reply, error) {
 		return nil, errors.New("验证失败: " + err.Error())
 	}
 
+	s := string(info)
+
 	return &types.Reply{
 		Code: 666,
-		Data: info,
+		Data: s,
 	}, nil
 }
