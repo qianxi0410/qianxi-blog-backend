@@ -25,11 +25,26 @@
       "allow_methods": [
         "GET",
         "POST",
-        "PUT"
+        "PUT",
+        "DELETE"
       ]
     }
   },
   "endpoints": [
+    {
+      "endpoint": "blog/oauth2/code/{code}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": [
+            "http://host.docker.internal:9998"
+          ],
+          "url_pattern": "/oauth2/code/{code}"
+        }
+      ],
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
     {
       "endpoint": "blog/post/id/{id}",
       "method": "GET",
@@ -105,11 +120,15 @@
       "method": "POST",
       "backend": [
         {
+          "encoding": "json",
           "host": [
             "http://host.docker.internal:9998"
           ],
           "url_pattern": "/comment/save"
         }
+      ],
+      "headers_to_pass": [
+        "Content-Length",  "Content-Type"
       ],
       "concurrent_calls": 1,
       "timeout": "10s",
