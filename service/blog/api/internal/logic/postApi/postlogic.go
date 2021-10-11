@@ -4,8 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"io/ioutil"
 	"qianxi-blog/common/key"
 	"qianxi-blog/service/blog/model/wrapper"
+	"sync"
 	"time"
 
 	"github.com/go-redis/redis/v8"
@@ -50,6 +52,19 @@ func (l *PostLogic) Post(req types.PostReq) (*types.Reply, error) {
 		return nil, errors.New("查询文章时出错: " + err.Error())
 	}
 
+	var wg sync.WaitGroup
+	wg.Add(1)
+	var bs []byte
+	go func() {
+		defer wg.Done()
+		bs, err = ioutil.ReadFile(post.Post.Path)
+
+		if err != nil {
+			panic(err)
+		}
+		post.Post.Path = string(bs)
+	}()
+
 	if post.Post.Pre != -1 {
 		post.PreTitle, err = l.svcCtx.PostModel.Title(post.Post.Pre)
 		if err != nil {
@@ -69,6 +84,7 @@ func (l *PostLogic) Post(req types.PostReq) (*types.Reply, error) {
 		return nil, errors.New("查询文章评论时出错: " + err.Error())
 	}
 
+	wg.Wait()
 	marshal, err := json.Marshal(post)
 	if err != nil {
 		return nil, errors.New("查询文章时出错: " + err.Error())
