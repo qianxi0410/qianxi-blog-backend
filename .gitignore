@@ -1,2 +1,5 @@
 .idea
-service/blog/api/etc/blog-api.yaml
+blog-api.yaml
+admin-api.yaml
+
+docker-compose.yaml
