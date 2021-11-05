@@ -13,3 +13,7 @@ Redis:
   Host: $host
   Pass: $pass
   Type: node
+
+Jwt:
+  Secret: $secret
+  Issuer: $issuer

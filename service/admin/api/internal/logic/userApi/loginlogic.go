@@ -3,6 +3,8 @@ package userApi
 import (
 	"context"
 	"errors"
+	"qianxi-blog/service/admin/api/internal/logic/utils"
+	"time"
 
 	"qianxi-blog/service/admin/api/internal/svc"
 	"qianxi-blog/service/admin/api/internal/types"
@@ -37,8 +39,17 @@ func (l *LoginLogic) Login(req types.LoginReq) (*types.Reply, error) {
 		return nil, errors.New("用户名或密码错误")
 	}
 
+	tokenStr, err := utils.GenerateToken(utils.JwtInfo{
+		Issuer: l.svcCtx.Config.Jwt.Issuer,
+		Secret: l.svcCtx.Config.Jwt.Secret,
+	}, user.Name, time.Minute*10)
+
+	if err != nil {
+		return nil, errors.New("签发token出错: " + err.Error())
+	}
+
 	return &types.Reply{
 		Code: 666,
-		Data: true,
+		Data: tokenStr,
 	}, nil
 }

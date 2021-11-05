@@ -15,4 +15,9 @@ type Config struct {
 
 	// redis
 	Redis redis.RedisConf
+
+	Jwt struct {
+		Secret string
+		Issuer string
+	}
 }
