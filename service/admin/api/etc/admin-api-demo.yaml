@@ -1,0 +1,15 @@
+Name: admin-api
+Host: 0.0.0.0
+Port: 9999
+
+Mysql:
+  DataSource: $user:$password@tcp($url)/$db?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+CacheRedis:
+  - Host: $host
+    Pass: $pass
+    Type: node
+
+Redis:
+  Host: $host
+  Pass: $pass
+  Type: node

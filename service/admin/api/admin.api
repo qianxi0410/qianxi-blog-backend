@@ -1,0 +1,30 @@
+syntax = "v1"
+
+info(
+	title: "admin api"
+	desc: "blog's admin api"
+	author: "qianxi"
+	email: "liuyihan0410@gmail.com"
+	version: "v1"
+)
+
+type Reply {
+	Code int         `json:"code"`
+	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
+}
+
+type (
+	LoginReq {
+		Name     string `json:"name"`
+		Password string `json:"password"`
+	}
+)
+
+@server(
+	group: userApi
+)
+service admin-api {
+	@handler Login
+	post /admin/login (LoginReq) returns (Reply)
+}
