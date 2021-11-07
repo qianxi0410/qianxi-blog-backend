@@ -41,8 +41,8 @@ func (l *LoginLogic) Login(req types.LoginReq) (*types.Reply, error) {
 
 	tokenStr, err := utils.GenerateToken(utils.JwtInfo{
 		Issuer: l.svcCtx.Config.Jwt.Issuer,
-		Secret: l.svcCtx.Config.Jwt.Secret,
-	}, user.Name, time.Minute*10)
+		Secret: l.svcCtx.Config.Jwt.AccessSecret,
+	}, user.Name, time.Minute*time.Duration(l.svcCtx.Config.Jwt.AccessExpire))
 
 	if err != nil {
 		return nil, errors.New("签发token出错: " + err.Error())

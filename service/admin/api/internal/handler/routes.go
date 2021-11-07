@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	Test "qianxi-blog/service/admin/api/internal/handler/Test"
 	userApi "qianxi-blog/service/admin/api/internal/handler/userApi"
 	"qianxi-blog/service/admin/api/internal/svc"
 
@@ -19,5 +20,16 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: userApi.LoginHandler(serverCtx),
 			},
 		},
+	)
+
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/admin/ping",
+				Handler: Test.PongHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Jwt.AccessSecret),
 	)
 }

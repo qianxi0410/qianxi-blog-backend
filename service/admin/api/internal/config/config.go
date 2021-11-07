@@ -17,7 +17,8 @@ type Config struct {
 	Redis redis.RedisConf
 
 	Jwt struct {
-		Secret string
-		Issuer string
+		AccessSecret string
+		AccessExpire int64
+		Issuer       string
 	}
 }

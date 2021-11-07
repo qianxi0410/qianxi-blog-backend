@@ -17,3 +17,8 @@ Redis:
 Jwt:
   Secret: $secret
   Issuer: $issuer
+
+Jwt:
+  AccessSecret: $secret
+  AccessExpire: $expire
+  Issuer: $issuer
