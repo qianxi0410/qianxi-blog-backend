@@ -1,5 +1,7 @@
 .idea
 blog-api.yaml
 admin-api.yaml
+blog-rpc.yaml
 
 docker-compose.yaml
+test

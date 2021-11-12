@@ -3,6 +3,9 @@ package svc
 import (
 	"qianxi-blog/service/admin/api/internal/config"
 	"qianxi-blog/service/admin/model"
+	"qianxi-blog/service/blog/rpc/blogclient"
+
+	"github.com/tal-tech/go-zero/zrpc"
 
 	"github.com/tal-tech/go-zero/core/stores/sqlx"
 
@@ -13,6 +16,7 @@ type ServiceContext struct {
 	Config    config.Config
 	UserModel model.UsersModel
 	Redis     *redis.Client
+	BlogRpc   blogclient.Blog
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -25,5 +29,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 			Addr:     c.Redis.Host,
 			Password: c.Redis.Pass,
 		}),
+		BlogRpc: blogclient.NewBlog(zrpc.MustNewClient(c.BlogRpc)),
 	}
 }

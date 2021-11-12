@@ -11,3 +11,40 @@ type LoginReq struct {
 	Name     string `json:"name"`
 	Password string `json:"password"`
 }
+
+type PageReq struct {
+	Page int64 `path:"page"`
+	Size int64 `path:"size"`
+}
+
+type UpdateReq struct {
+	Title       string `json:"title"`
+	Url         string `json:"url"`
+	CreatedAt   int64  `json:"created_at"`
+	Id          int64  `json:"id"`
+	Next        int64  `json:"next"`
+	Pre         int64  `json:"pre"`
+	Description string `json:"description"`
+	Tags        string `json:"tags"`
+	Path        string `json:"path"`
+	Page        int64  `json:"page"`
+	Size        int64  `json:"size"`
+}
+
+type PostReq struct {
+	Id int64 `path:"id"`
+}
+
+type DeleteReq struct {
+	Id   int64 `path:"id"`
+	Size int64 `path:"size"`
+	Page int64 `path:"page"`
+}
+
+type InsertReq struct {
+	Title       string `json:"title"`
+	Url         string `json:"url"`
+	Description string `json:"description"`
+	Tags        string `json:"tags"`
+	Path        string `json:"path"`
+}

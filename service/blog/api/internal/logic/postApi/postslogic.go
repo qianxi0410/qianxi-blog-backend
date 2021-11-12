@@ -58,7 +58,7 @@ func (l *PostsLogic) Posts(req types.PageReq) (*types.Reply, error) {
 	marshal, err := json.Marshal(posts)
 
 	if err != nil {
-		return nil, errors.New("分页查询文章时出错: " + err.Error())
+		return nil, errors.New("序列化文章时出错: " + err.Error())
 	}
 
 	l.svcCtx.Redis.Set(context.Background(), key.Posts(req.Page, req.Size), marshal, 10*time.Minute)

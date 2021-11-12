@@ -4,7 +4,7 @@ package handler
 import (
 	"net/http"
 
-	Test "qianxi-blog/service/admin/api/internal/handler/Test"
+	blogRpc "qianxi-blog/service/admin/api/internal/handler/blogRpc"
 	userApi "qianxi-blog/service/admin/api/internal/handler/userApi"
 	"qianxi-blog/service/admin/api/internal/svc"
 
@@ -16,7 +16,7 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
-				Path:    "/admin/login",
+				Path:    "/admin/user/login",
 				Handler: userApi.LoginHandler(serverCtx),
 			},
 		},
@@ -26,8 +26,48 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
-				Path:    "/admin/ping",
-				Handler: Test.PongHandler(serverCtx),
+				Path:    "/admin/countinfo",
+				Handler: blogRpc.CountInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/admin/post/page/:page/size/:size",
+				Handler: blogRpc.PostsHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/admin/post/count",
+				Handler: blogRpc.PostCountHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/admin/comment/count",
+				Handler: blogRpc.CommentCountHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/admin/post/update",
+				Handler: blogRpc.UpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/admin/post/id/:id",
+				Handler: blogRpc.PostHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/admin/post/id/:id/page/:page/size/:size",
+				Handler: blogRpc.DeletePostHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/admin/post/update/content",
+				Handler: blogRpc.UpdatWithContentHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/admin/post/insert",
+				Handler: blogRpc.InsertPostHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.Jwt.AccessSecret),

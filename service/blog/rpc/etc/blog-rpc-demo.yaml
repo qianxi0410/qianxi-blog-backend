@@ -1,0 +1,22 @@
+Name: blog.rpc
+ListenOn: 127.0.0.1:8888
+
+Etcd:
+  Hosts:
+    - $host:$port
+  Key: blog.rpc
+
+
+CacheRedis:
+  - Host: $host:$port
+    Pass: $pass
+    Type: node
+
+
+Mysql:
+  DataSource: $user:$password@tcp($url)/$db?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+
+Redis:
+  Host: $host:$port
+  Pass: $pass
+  Type: node

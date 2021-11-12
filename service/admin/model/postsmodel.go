@@ -33,16 +33,16 @@ type (
 	}
 
 	Posts struct {
-		Id          int64          `db:"id"`
-		CreatedAt   time.Time      `db:"created_at"`
-		UpdatedAt   time.Time      `db:"updated_at"`
-		Title       string         `db:"title"`
-		Description sql.NullString `db:"description"`
-		Pre         int64          `db:"pre"`
-		Next        int64          `db:"next"`
-		Url         string         `db:"url"`
-		Path        string         `db:"path"`
-		Tags        sql.NullString `db:"tags"`
+		Id          int64          `db:"id" json:"id"`
+		CreatedAt   time.Time      `db:"created_at" json:"created_at"`
+		UpdatedAt   time.Time      `db:"updated_at" json:"updated_at"`
+		Title       string         `db:"title" json:"title"`
+		Description sql.NullString `db:"description" json:"description"`
+		Pre         int64          `db:"pre" json:"pre"`
+		Next        int64          `db:"next" json:"next"`
+		Url         string         `db:"url" json:"url"`
+		Path        string         `db:"path" json:"path"`
+		Tags        sql.NullString `db:"tags" json:"tags"`
 	}
 )
 

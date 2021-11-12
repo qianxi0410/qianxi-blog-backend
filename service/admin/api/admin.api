@@ -21,10 +21,82 @@ type (
 	}
 )
 
+type (
+	PageReq {
+		Page int64 `path:"page"`
+		Size int64 `path:"size"`
+	}
+
+	UpdateReq {
+		Title       string `json:"title"`
+		Url         string `json:"url"`
+		CreatedAt   int64  `json:"created_at"`
+		Id          int64  `json:"id"`
+		Next        int64  `json:"next"`
+		Pre         int64  `json:"pre"`
+		Description string `json:"description"`
+		Tags        string `json:"tags"`
+		Path        string `json:"path"`
+		Page        int64  `json:"page"`
+		Size        int64  `json:"size"`
+	}
+
+	PostReq {
+		Id int64 `path:"id"`
+	}
+
+	DeleteReq {
+		Id   int64 `path:"id"`
+		Size int64 `path:"size"`
+		Page int64 `path:"page"`
+	}
+
+	InsertReq {
+		Title       string `json:"title"`
+		Url         string `json:"url"`
+		Description string `json:"description"`
+		Tags        string `json:"tags"`
+		Path        string `json:"path"`
+	}
+)
+
 @server(
 	group: userApi
 )
 service admin-api {
 	@handler Login
-	post /admin/login (LoginReq) returns (Reply)
+	post /admin/user/login (LoginReq) returns (Reply)
+}
+
+@server(
+	group: blogRpc
+	jwt: Jwt
+)
+service admin-api {
+	@handler CountInfo
+	get /admin/countinfo () returns (Reply);
+	
+	@handler Posts
+	get /admin/post/page/:page/size/:size (PageReq) returns (Reply)
+	
+	@handler PostCount
+	get /admin/post/count () returns (Reply);
+	
+	@handler CommentCount
+	get /admin/comment/count () returns (Reply);
+	
+	@handler Update
+	post /admin/post/update (UpdateReq) returns (Reply);
+	
+	@handler Post
+	get /admin/post/id/:id (PostReq) returns (Reply);
+	
+	@handler DeletePost
+	delete /admin/post/id/:id/page/:page/size/:size (DeleteReq) returns (Reply);
+	
+	@handler UpdatWithContent
+	post  /admin/post/update/content (UpdateReq) returns (Reply);
+	
+	@handler InsertPost
+	post /admin/post/insert (InsertReq) returns (Reply);
 }

@@ -16,8 +16,8 @@ import (
 var (
 	postsFieldNames          = builderx.RawFieldNames(&Posts{})
 	postsRows                = strings.Join(postsFieldNames, ",")
-	postsRowsExpectAutoSet   = strings.Join(stringx.Remove(postsFieldNames, "`id`", "`created_at`", "`updated_at`"), ",")
-	postsRowsWithPlaceHolder = strings.Join(stringx.Remove(postsFieldNames, "`id`", "`created_at`", "`updated_at`"), "=?,") + "=?"
+	postsRowsExpectAutoSet   = strings.Join(stringx.Remove(postsFieldNames), ",")
+	postsRowsWithPlaceHolder = strings.Join(stringx.Remove(postsFieldNames, "`id`", "`created_at`"), "=?,") + "=?"
 
 	cacheBlogPostsIdPrefix = "cache:blog:posts:id:"
 )
@@ -33,6 +33,8 @@ type (
 		Posts(offset, size int64) ([]Posts, error)
 		PostsWithTag(offset, size int64, tag string) ([]Posts, error)
 		Title(id int64) (string, error)
+		PostsAll() ([]Posts, error)
+		MaxId() (int64, error)
 	}
 
 	defaultPostsModel struct {
@@ -61,6 +63,18 @@ func NewPostsModel(conn sqlx.SqlConn, c cache.CacheConf) PostsModel {
 	}
 }
 
+func (m *defaultPostsModel) MaxId() (int64, error) {
+	var ret int64
+	query := fmt.Sprintf("select max(id) from %s", m.table)
+	err := m.QueryRowNoCache(&ret, query)
+
+	if err != nil {
+		return -1, err
+	}
+
+	return ret, nil
+}
+
 func (m *defaultPostsModel) Title(id int64) (string, error) {
 	var ret string
 
@@ -77,6 +91,17 @@ func (m *defaultPostsModel) Title(id int64) (string, error) {
 func (m *defaultPostsModel) PostsWithTag(offset, size int64, tag string) ([]Posts, error) {
 	var ret []Posts
 	query := fmt.Sprintf("select * from %s where tags like '%%%s%%' order by created_at desc limit %d offset %d", m.table, tag, size, offset)
+	err := m.QueryRowsNoCache(&ret, query)
+
+	if err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+func (m *defaultPostsModel) PostsAll() ([]Posts, error) {
+	var ret []Posts
+	query := fmt.Sprintf("select * from %s order by created_at desc", m.table)
 	err := m.QueryRowsNoCache(&ret, query)
 
 	if err != nil {
@@ -123,7 +148,7 @@ func (m *defaultPostsModel) Count() (int64, error) {
 func (m *defaultPostsModel) Insert(data Posts) (sql.Result, error) {
 	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, postsRowsExpectAutoSet)
 	ret, err := m.ExecNoCache(query, data.Id, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags)
-
+	fmt.Println(query)
 	return ret, err
 }
 
@@ -148,7 +173,8 @@ func (m *defaultPostsModel) Update(data Posts) error {
 	blogPostsIdKey := fmt.Sprintf("%s%v", cacheBlogPostsIdPrefix, data.Id)
 	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
 		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, postsRowsWithPlaceHolder)
-		return conn.Exec(query, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Id)
+		fmt.Println(query)
+		return conn.Exec(query, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Id)
 	}, blogPostsIdKey)
 	return err
 }

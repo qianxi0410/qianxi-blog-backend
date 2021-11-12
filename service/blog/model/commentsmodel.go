@@ -29,6 +29,8 @@ type (
 		Update(data Comments) error
 		Delete(id int64) error
 		CommentsWithPostId(id int64) ([]Comments, error)
+		Count() (int64, error)
+		DeleteByPostId(postId int64) error
 	}
 
 	defaultCommentsModel struct {
@@ -53,6 +55,24 @@ func NewCommentsModel(conn sqlx.SqlConn, c cache.CacheConf) CommentsModel {
 		CachedConn: sqlc.NewConn(conn, c),
 		table:      "`comments`",
 	}
+}
+
+func (m *defaultCommentsModel) DeleteByPostId(postId int64) error {
+	query := fmt.Sprintf("delete from %s where `post_id` = ?", m.table)
+	_, err := m.ExecNoCache(query, postId)
+	return err
+}
+
+func (m *defaultCommentsModel) Count() (int64, error) {
+	var ret int64
+	query := fmt.Sprintf("select count(1) from %s", m.table)
+	err := m.QueryRowNoCache(&ret, query)
+
+	if err != nil {
+		return -1, err
+	}
+
+	return ret, nil
 }
 
 func (m *defaultCommentsModel) CommentsWithPostId(postId int64) ([]Comments, error) {
