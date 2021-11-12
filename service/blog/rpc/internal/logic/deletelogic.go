@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"os"
 	"qianxi-blog/common/key"
 
 	"qianxi-blog/service/blog/rpc/blog"
@@ -75,7 +76,10 @@ func (l *DeleteLogic) Delete(in *blog.DeleteReq) (*blog.DeleteReply, error) {
 	l.svcCtx.Redis.Expire(l.ctx, key.PostsCount(), 0)
 	l.svcCtx.Redis.Expire(l.ctx, key.CountInfo(), 0)
 	l.svcCtx.Redis.Expire(l.ctx, key.CommentCount(), 0)
-	// TODO: 删除文件
+	err = os.Remove(one.Path)
+	if err != nil {
+		return nil, err
+	}
 
 	return &blog.DeleteReply{}, nil
 }
