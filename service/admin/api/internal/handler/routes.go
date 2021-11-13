@@ -25,6 +25,47 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	engine.AddRoutes(
 		[]rest.Route{
 			{
+				Method:  http.MethodPost,
+				Path:    "/admin/post/update",
+				Handler: blogRpc.UpdateHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/admin/post/id/:id/page/:page/size/:size",
+				Handler: blogRpc.DeletePostHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/admin/post/update/content",
+				Handler: blogRpc.UpdatWithContentHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/admin/post/insert",
+				Handler: blogRpc.InsertPostHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodDelete,
+				Path:    "/admin/comment/id/:id/postid/:postid",
+				Handler: blogRpc.DeleteCommentHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/admin/system/update",
+				Handler: blogRpc.UpdateSystemInfoHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Jwt.AccessSecret),
+	)
+
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/admin/system",
+				Handler: blogRpc.AllSystemInfoHandler(serverCtx),
+			},
+			{
 				Method:  http.MethodGet,
 				Path:    "/admin/countinfo",
 				Handler: blogRpc.CountInfoHandler(serverCtx),
@@ -45,31 +86,15 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: blogRpc.CommentCountHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodPost,
-				Path:    "/admin/post/update",
-				Handler: blogRpc.UpdateHandler(serverCtx),
-			},
-			{
 				Method:  http.MethodGet,
 				Path:    "/admin/post/id/:id",
 				Handler: blogRpc.PostHandler(serverCtx),
 			},
 			{
-				Method:  http.MethodDelete,
-				Path:    "/admin/post/id/:id/page/:page/size/:size",
-				Handler: blogRpc.DeletePostHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/admin/post/update/content",
-				Handler: blogRpc.UpdatWithContentHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/admin/post/insert",
-				Handler: blogRpc.InsertPostHandler(serverCtx),
+				Method:  http.MethodGet,
+				Path:    "/admin/comment/page/:page/size/:size",
+				Handler: blogRpc.CommentsHandler(serverCtx),
 			},
 		},
-		rest.WithJwt(serverCtx.Config.Jwt.AccessSecret),
 	)
 }

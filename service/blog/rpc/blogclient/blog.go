@@ -12,19 +12,29 @@ import (
 )
 
 type (
-	PageReq     = blog.PageReq
-	PageReply   = blog.PageReply
-	UpdateReq   = blog.UpdateReq
-	Post        = blog.Post
-	CountReq    = blog.CountReq
-	CountReply  = blog.CountReply
-	UpdateReply = blog.UpdateReply
-	PostReq     = blog.PostReq
-	PostReply   = blog.PostReply
-	DeleteReq   = blog.DeleteReq
-	DeleteReply = blog.DeleteReply
-	InsertReq   = blog.InsertReq
-	InsertReply = blog.InsertReply
+	DeleteReq             = blog.DeleteReq
+	DeleteReply           = blog.DeleteReply
+	CommentDeleteReply    = blog.CommentDeleteReply
+	SystemInfoReq         = blog.SystemInfoReq
+	PageReq               = blog.PageReq
+	CountReq              = blog.CountReq
+	PostReq               = blog.PostReq
+	UpdateReq             = blog.UpdateReq
+	SystemInfoReply       = blog.SystemInfoReply
+	SystemInfoAllReq      = blog.SystemInfoAllReq
+	UpdateSystemInfoReply = blog.UpdateSystemInfoReply
+	Comment               = blog.Comment
+	CommentPageReply      = blog.CommentPageReply
+	CountReply            = blog.CountReply
+	PostReply             = blog.PostReply
+	CommentDeleteReq      = blog.CommentDeleteReq
+	SystemInfoAllReply    = blog.SystemInfoAllReply
+	InsertReq             = blog.InsertReq
+	InsertReply           = blog.InsertReply
+	UpdateSystemInfoReq   = blog.UpdateSystemInfoReq
+	Post                  = blog.Post
+	PageReply             = blog.PageReply
+	UpdateReply           = blog.UpdateReply
 
 	Blog interface {
 		Posts(ctx context.Context, in *PageReq) (*PageReply, error)
@@ -35,6 +45,11 @@ type (
 		Delete(ctx context.Context, in *DeleteReq) (*DeleteReply, error)
 		UpdateWithContent(ctx context.Context, in *UpdateReq) (*UpdateReply, error)
 		Insert(ctx context.Context, in *InsertReq) (*InsertReply, error)
+		Comments(ctx context.Context, in *PageReq) (*CommentPageReply, error)
+		DeleteComment(ctx context.Context, in *CommentDeleteReq) (*CommentDeleteReply, error)
+		SystemInfo(ctx context.Context, in *SystemInfoReq) (*SystemInfoReply, error)
+		SystemInfoAll(ctx context.Context, in *SystemInfoAllReq) (*SystemInfoAllReply, error)
+		UpdateSystemInfo(ctx context.Context, in *UpdateSystemInfoReq) (*UpdateSystemInfoReply, error)
 	}
 
 	defaultBlog struct {
@@ -86,4 +101,29 @@ func (m *defaultBlog) UpdateWithContent(ctx context.Context, in *UpdateReq) (*Up
 func (m *defaultBlog) Insert(ctx context.Context, in *InsertReq) (*InsertReply, error) {
 	client := blog.NewBlogClient(m.cli.Conn())
 	return client.Insert(ctx, in)
+}
+
+func (m *defaultBlog) Comments(ctx context.Context, in *PageReq) (*CommentPageReply, error) {
+	client := blog.NewBlogClient(m.cli.Conn())
+	return client.Comments(ctx, in)
+}
+
+func (m *defaultBlog) DeleteComment(ctx context.Context, in *CommentDeleteReq) (*CommentDeleteReply, error) {
+	client := blog.NewBlogClient(m.cli.Conn())
+	return client.DeleteComment(ctx, in)
+}
+
+func (m *defaultBlog) SystemInfo(ctx context.Context, in *SystemInfoReq) (*SystemInfoReply, error) {
+	client := blog.NewBlogClient(m.cli.Conn())
+	return client.SystemInfo(ctx, in)
+}
+
+func (m *defaultBlog) SystemInfoAll(ctx context.Context, in *SystemInfoAllReq) (*SystemInfoAllReply, error) {
+	client := blog.NewBlogClient(m.cli.Conn())
+	return client.SystemInfoAll(ctx, in)
+}
+
+func (m *defaultBlog) UpdateSystemInfo(ctx context.Context, in *UpdateSystemInfoReq) (*UpdateSystemInfoReply, error) {
+	client := blog.NewBlogClient(m.cli.Conn())
+	return client.UpdateSystemInfo(ctx, in)
 }

@@ -1,5 +1,9 @@
 package key
 
 func CountInfo() string {
-	return "blog_count_info"
+	return "system:blog_count_info"
+}
+
+func AllInfo() string {
+	return "system:all"
 }

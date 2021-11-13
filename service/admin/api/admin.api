@@ -58,6 +58,16 @@ type (
 		Tags        string `json:"tags"`
 		Path        string `json:"path"`
 	}
+
+	DeleteCommentReq {
+		Id     int64 `path:"id"`
+		PostId int64 `path:"postid"`
+	}
+
+	UpdateSystemReq {
+		Key   string `json:"key"`
+		Value string `json:"value"`
+	}
 )
 
 @server(
@@ -73,6 +83,32 @@ service admin-api {
 	jwt: Jwt
 )
 service admin-api {
+	@handler Update
+	post /admin/post/update (UpdateReq) returns (Reply);
+	
+	@handler DeletePost
+	delete /admin/post/id/:id/page/:page/size/:size (DeleteReq) returns (Reply);
+	
+	@handler UpdatWithContent
+	post  /admin/post/update/content (UpdateReq) returns (Reply);
+	
+	@handler InsertPost
+	post /admin/post/insert (InsertReq) returns (Reply);
+	
+	@handler DeleteComment
+	delete /admin/comment/id/:id/postid/:postid (DeleteCommentReq) returns (Reply);
+	
+	@handler UpdateSystemInfo
+	post /admin/system/update (UpdateSystemReq) returns (Reply);
+}
+
+@server(
+	group: blogRpc
+)
+service admin-api {
+	@handler AllSystemInfo
+	get /admin/system () returns (Reply);
+	
 	@handler CountInfo
 	get /admin/countinfo () returns (Reply);
 	
@@ -85,18 +121,9 @@ service admin-api {
 	@handler CommentCount
 	get /admin/comment/count () returns (Reply);
 	
-	@handler Update
-	post /admin/post/update (UpdateReq) returns (Reply);
-	
 	@handler Post
 	get /admin/post/id/:id (PostReq) returns (Reply);
 	
-	@handler DeletePost
-	delete /admin/post/id/:id/page/:page/size/:size (DeleteReq) returns (Reply);
-	
-	@handler UpdatWithContent
-	post  /admin/post/update/content (UpdateReq) returns (Reply);
-	
-	@handler InsertPost
-	post /admin/post/insert (InsertReq) returns (Reply);
+	@handler Comments
+	get /admin/comment/page/:page/size/:size (PageReq) returns (Reply);
 }

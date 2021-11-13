@@ -198,6 +198,109 @@ func (x *Post) GetTags() string {
 	return ""
 }
 
+type Comment struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id         int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	CreatedAt  int64  `protobuf:"varint,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdateedAt int64  `protobuf:"varint,3,opt,name=updateed_at,json=updateedAt,proto3" json:"updateed_at,omitempty"`
+	Content    string `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	Login      string `protobuf:"bytes,5,opt,name=login,proto3" json:"login,omitempty"`
+	Name       string `protobuf:"bytes,6,opt,name=name,proto3" json:"name,omitempty"`
+	Avatar     string `protobuf:"bytes,7,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	PostId     int64  `protobuf:"varint,8,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
+}
+
+func (x *Comment) Reset() {
+	*x = Comment{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Comment) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Comment) ProtoMessage() {}
+
+func (x *Comment) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Comment.ProtoReflect.Descriptor instead.
+func (*Comment) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Comment) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Comment) GetCreatedAt() int64 {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return 0
+}
+
+func (x *Comment) GetUpdateedAt() int64 {
+	if x != nil {
+		return x.UpdateedAt
+	}
+	return 0
+}
+
+func (x *Comment) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *Comment) GetLogin() string {
+	if x != nil {
+		return x.Login
+	}
+	return ""
+}
+
+func (x *Comment) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Comment) GetAvatar() string {
+	if x != nil {
+		return x.Avatar
+	}
+	return ""
+}
+
+func (x *Comment) GetPostId() int64 {
+	if x != nil {
+		return x.PostId
+	}
+	return 0
+}
+
 type PageReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -209,7 +312,7 @@ type PageReply struct {
 func (x *PageReply) Reset() {
 	*x = PageReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[2]
+		mi := &file_blog_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -222,7 +325,7 @@ func (x *PageReply) String() string {
 func (*PageReply) ProtoMessage() {}
 
 func (x *PageReply) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[2]
+	mi := &file_blog_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -235,12 +338,59 @@ func (x *PageReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PageReply.ProtoReflect.Descriptor instead.
 func (*PageReply) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{2}
+	return file_blog_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *PageReply) GetPosts() []*Post {
 	if x != nil {
 		return x.Posts
+	}
+	return nil
+}
+
+type CommentPageReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Comments []*Comment `protobuf:"bytes,1,rep,name=comments,proto3" json:"comments,omitempty"`
+}
+
+func (x *CommentPageReply) Reset() {
+	*x = CommentPageReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CommentPageReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommentPageReply) ProtoMessage() {}
+
+func (x *CommentPageReply) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommentPageReply.ProtoReflect.Descriptor instead.
+func (*CommentPageReply) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *CommentPageReply) GetComments() []*Comment {
+	if x != nil {
+		return x.Comments
 	}
 	return nil
 }
@@ -254,7 +404,7 @@ type CountReq struct {
 func (x *CountReq) Reset() {
 	*x = CountReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[3]
+		mi := &file_blog_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -267,7 +417,7 @@ func (x *CountReq) String() string {
 func (*CountReq) ProtoMessage() {}
 
 func (x *CountReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[3]
+	mi := &file_blog_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -280,7 +430,7 @@ func (x *CountReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CountReq.ProtoReflect.Descriptor instead.
 func (*CountReq) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{3}
+	return file_blog_proto_rawDescGZIP(), []int{5}
 }
 
 type CountReply struct {
@@ -294,7 +444,7 @@ type CountReply struct {
 func (x *CountReply) Reset() {
 	*x = CountReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[4]
+		mi := &file_blog_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -307,7 +457,7 @@ func (x *CountReply) String() string {
 func (*CountReply) ProtoMessage() {}
 
 func (x *CountReply) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[4]
+	mi := &file_blog_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -320,7 +470,7 @@ func (x *CountReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CountReply.ProtoReflect.Descriptor instead.
 func (*CountReply) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{4}
+	return file_blog_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CountReply) GetCount() int64 {
@@ -343,7 +493,7 @@ type UpdateReq struct {
 func (x *UpdateReq) Reset() {
 	*x = UpdateReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[5]
+		mi := &file_blog_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -356,7 +506,7 @@ func (x *UpdateReq) String() string {
 func (*UpdateReq) ProtoMessage() {}
 
 func (x *UpdateReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[5]
+	mi := &file_blog_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -369,7 +519,7 @@ func (x *UpdateReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateReq.ProtoReflect.Descriptor instead.
 func (*UpdateReq) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{5}
+	return file_blog_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *UpdateReq) GetPost() *Post {
@@ -402,7 +552,7 @@ type UpdateReply struct {
 func (x *UpdateReply) Reset() {
 	*x = UpdateReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[6]
+		mi := &file_blog_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -415,7 +565,7 @@ func (x *UpdateReply) String() string {
 func (*UpdateReply) ProtoMessage() {}
 
 func (x *UpdateReply) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[6]
+	mi := &file_blog_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -428,7 +578,7 @@ func (x *UpdateReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateReply.ProtoReflect.Descriptor instead.
 func (*UpdateReply) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{6}
+	return file_blog_proto_rawDescGZIP(), []int{8}
 }
 
 type PostReq struct {
@@ -442,7 +592,7 @@ type PostReq struct {
 func (x *PostReq) Reset() {
 	*x = PostReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[7]
+		mi := &file_blog_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -455,7 +605,7 @@ func (x *PostReq) String() string {
 func (*PostReq) ProtoMessage() {}
 
 func (x *PostReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[7]
+	mi := &file_blog_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -468,7 +618,7 @@ func (x *PostReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PostReq.ProtoReflect.Descriptor instead.
 func (*PostReq) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{7}
+	return file_blog_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *PostReq) GetId() int64 {
@@ -489,7 +639,7 @@ type PostReply struct {
 func (x *PostReply) Reset() {
 	*x = PostReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[8]
+		mi := &file_blog_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -502,7 +652,7 @@ func (x *PostReply) String() string {
 func (*PostReply) ProtoMessage() {}
 
 func (x *PostReply) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[8]
+	mi := &file_blog_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -515,7 +665,7 @@ func (x *PostReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PostReply.ProtoReflect.Descriptor instead.
 func (*PostReply) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{8}
+	return file_blog_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *PostReply) GetPost() *Post {
@@ -538,7 +688,7 @@ type DeleteReq struct {
 func (x *DeleteReq) Reset() {
 	*x = DeleteReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[9]
+		mi := &file_blog_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -551,7 +701,7 @@ func (x *DeleteReq) String() string {
 func (*DeleteReq) ProtoMessage() {}
 
 func (x *DeleteReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[9]
+	mi := &file_blog_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -564,7 +714,7 @@ func (x *DeleteReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteReq.ProtoReflect.Descriptor instead.
 func (*DeleteReq) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{9}
+	return file_blog_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DeleteReq) GetId() int64 {
@@ -597,7 +747,7 @@ type DeleteReply struct {
 func (x *DeleteReply) Reset() {
 	*x = DeleteReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[10]
+		mi := &file_blog_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -610,7 +760,7 @@ func (x *DeleteReply) String() string {
 func (*DeleteReply) ProtoMessage() {}
 
 func (x *DeleteReply) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[10]
+	mi := &file_blog_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -623,7 +773,7 @@ func (x *DeleteReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteReply.ProtoReflect.Descriptor instead.
 func (*DeleteReply) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{10}
+	return file_blog_proto_rawDescGZIP(), []int{12}
 }
 
 type InsertReq struct {
@@ -641,7 +791,7 @@ type InsertReq struct {
 func (x *InsertReq) Reset() {
 	*x = InsertReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[11]
+		mi := &file_blog_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -654,7 +804,7 @@ func (x *InsertReq) String() string {
 func (*InsertReq) ProtoMessage() {}
 
 func (x *InsertReq) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[11]
+	mi := &file_blog_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -667,7 +817,7 @@ func (x *InsertReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InsertReq.ProtoReflect.Descriptor instead.
 func (*InsertReq) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{11}
+	return file_blog_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *InsertReq) GetTitle() string {
@@ -714,7 +864,7 @@ type InsertReply struct {
 func (x *InsertReply) Reset() {
 	*x = InsertReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_blog_proto_msgTypes[12]
+		mi := &file_blog_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -727,7 +877,7 @@ func (x *InsertReply) String() string {
 func (*InsertReply) ProtoMessage() {}
 
 func (x *InsertReply) ProtoReflect() protoreflect.Message {
-	mi := &file_blog_proto_msgTypes[12]
+	mi := &file_blog_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -740,7 +890,372 @@ func (x *InsertReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InsertReply.ProtoReflect.Descriptor instead.
 func (*InsertReply) Descriptor() ([]byte, []int) {
-	return file_blog_proto_rawDescGZIP(), []int{12}
+	return file_blog_proto_rawDescGZIP(), []int{14}
+}
+
+type CommentDeleteReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id     int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	PostId int64 `protobuf:"varint,2,opt,name=post_id,json=postId,proto3" json:"post_id,omitempty"`
+}
+
+func (x *CommentDeleteReq) Reset() {
+	*x = CommentDeleteReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CommentDeleteReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommentDeleteReq) ProtoMessage() {}
+
+func (x *CommentDeleteReq) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommentDeleteReq.ProtoReflect.Descriptor instead.
+func (*CommentDeleteReq) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *CommentDeleteReq) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *CommentDeleteReq) GetPostId() int64 {
+	if x != nil {
+		return x.PostId
+	}
+	return 0
+}
+
+type CommentDeleteReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *CommentDeleteReply) Reset() {
+	*x = CommentDeleteReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CommentDeleteReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommentDeleteReply) ProtoMessage() {}
+
+func (x *CommentDeleteReply) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommentDeleteReply.ProtoReflect.Descriptor instead.
+func (*CommentDeleteReply) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{16}
+}
+
+type SystemInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Key string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+}
+
+func (x *SystemInfoReq) Reset() {
+	*x = SystemInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SystemInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemInfoReq) ProtoMessage() {}
+
+func (x *SystemInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemInfoReq.ProtoReflect.Descriptor instead.
+func (*SystemInfoReq) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *SystemInfoReq) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type SystemInfoReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+}
+
+func (x *SystemInfoReply) Reset() {
+	*x = SystemInfoReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SystemInfoReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemInfoReply) ProtoMessage() {}
+
+func (x *SystemInfoReply) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemInfoReply.ProtoReflect.Descriptor instead.
+func (*SystemInfoReply) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *SystemInfoReply) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+type SystemInfoAllReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SystemInfoAllReq) Reset() {
+	*x = SystemInfoAllReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SystemInfoAllReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemInfoAllReq) ProtoMessage() {}
+
+func (x *SystemInfoAllReq) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemInfoAllReq.ProtoReflect.Descriptor instead.
+func (*SystemInfoAllReq) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{19}
+}
+
+type SystemInfoAllReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Kv map[string]string `protobuf:"bytes,1,rep,name=kv,proto3" json:"kv,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+func (x *SystemInfoAllReply) Reset() {
+	*x = SystemInfoAllReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SystemInfoAllReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SystemInfoAllReply) ProtoMessage() {}
+
+func (x *SystemInfoAllReply) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SystemInfoAllReply.ProtoReflect.Descriptor instead.
+func (*SystemInfoAllReply) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *SystemInfoAllReply) GetKv() map[string]string {
+	if x != nil {
+		return x.Kv
+	}
+	return nil
+}
+
+type UpdateSystemInfoReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Key   string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+}
+
+func (x *UpdateSystemInfoReq) Reset() {
+	*x = UpdateSystemInfoReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateSystemInfoReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateSystemInfoReq) ProtoMessage() {}
+
+func (x *UpdateSystemInfoReq) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateSystemInfoReq.ProtoReflect.Descriptor instead.
+func (*UpdateSystemInfoReq) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *UpdateSystemInfoReq) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *UpdateSystemInfoReq) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+type UpdateSystemInfoReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *UpdateSystemInfoReply) Reset() {
+	*x = UpdateSystemInfoReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_blog_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateSystemInfoReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateSystemInfoReply) ProtoMessage() {}
+
+func (x *UpdateSystemInfoReply) ProtoReflect() protoreflect.Message {
+	mi := &file_blog_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateSystemInfoReply.ProtoReflect.Descriptor instead.
+func (*UpdateSystemInfoReply) Descriptor() ([]byte, []int) {
+	return file_blog_proto_rawDescGZIP(), []int{22}
 }
 
 var File_blog_proto protoreflect.FileDescriptor
@@ -765,10 +1280,27 @@ var file_blog_proto_rawDesc = []byte{
 	0x6c, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x12, 0x12, 0x0a, 0x04,
 	0x70, 0x61, 0x74, 0x68, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x70, 0x61, 0x74, 0x68,
 	0x12, 0x12, 0x0a, 0x04, 0x74, 0x61, 0x67, 0x73, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
-	0x74, 0x61, 0x67, 0x73, 0x22, 0x2d, 0x0a, 0x09, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x70, 0x6c,
-	0x79, 0x12, 0x20, 0x0a, 0x05, 0x70, 0x6f, 0x73, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
-	0x32, 0x0a, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x05, 0x70, 0x6f,
-	0x73, 0x74, 0x73, 0x22, 0x0a, 0x0a, 0x08, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x22,
+	0x74, 0x61, 0x67, 0x73, 0x22, 0xce, 0x01, 0x0a, 0x07, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x12,
+	0x1f, 0x0a, 0x0b, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x65, 0x64, 0x5f, 0x61, 0x74, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x65, 0x64, 0x41, 0x74,
+	0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x6f,
+	0x67, 0x69, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x6f, 0x67, 0x69, 0x6e,
+	0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x76, 0x61, 0x74, 0x61, 0x72, 0x18, 0x07,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x76, 0x61, 0x74, 0x61, 0x72, 0x12, 0x17, 0x0a, 0x07,
+	0x70, 0x6f, 0x73, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x70,
+	0x6f, 0x73, 0x74, 0x49, 0x64, 0x22, 0x2d, 0x0a, 0x09, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x70,
+	0x6c, 0x79, 0x12, 0x20, 0x0a, 0x05, 0x70, 0x6f, 0x73, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x0a, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x05, 0x70,
+	0x6f, 0x73, 0x74, 0x73, 0x22, 0x3d, 0x0a, 0x10, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x50,
+	0x61, 0x67, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x29, 0x0a, 0x08, 0x63, 0x6f, 0x6d, 0x6d,
+	0x65, 0x6e, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x08, 0x63, 0x6f, 0x6d, 0x6d, 0x65,
+	0x6e, 0x74, 0x73, 0x22, 0x0a, 0x0a, 0x08, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x22,
 	0x22, 0x0a, 0x0a, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x14, 0x0a,
 	0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x05, 0x63, 0x6f,
 	0x75, 0x6e, 0x74, 0x22, 0x53, 0x0a, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71,
@@ -796,31 +1328,76 @@ var file_blog_proto_rawDesc = []byte{
 	0x74, 0x68, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x70, 0x61, 0x74, 0x68, 0x12, 0x12,
 	0x0a, 0x04, 0x74, 0x61, 0x67, 0x73, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x61,
 	0x67, 0x73, 0x22, 0x0d, 0x0a, 0x0b, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x52, 0x65, 0x70, 0x6c,
-	0x79, 0x32, 0xfb, 0x02, 0x0a, 0x04, 0x62, 0x6c, 0x6f, 0x67, 0x12, 0x27, 0x0a, 0x05, 0x70, 0x6f,
-	0x73, 0x74, 0x73, 0x12, 0x0d, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52,
-	0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65,
-	0x70, 0x6c, 0x79, 0x12, 0x2d, 0x0a, 0x09, 0x70, 0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74,
-	0x12, 0x0e, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x71,
-	0x1a, 0x10, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x12, 0x30, 0x0a, 0x0c, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x43, 0x6f, 0x75,
-	0x6e, 0x74, 0x12, 0x0e, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52,
-	0x65, 0x71, 0x1a, 0x10, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52,
-	0x65, 0x70, 0x6c, 0x79, 0x12, 0x2c, 0x0a, 0x06, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x0f,
-	0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a,
-	0x11, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x12, 0x26, 0x0a, 0x04, 0x70, 0x6f, 0x73, 0x74, 0x12, 0x0d, 0x2e, 0x62, 0x6c, 0x6f,
-	0x67, 0x2e, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67,
-	0x2e, 0x50, 0x6f, 0x73, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2c, 0x0a, 0x06, 0x64, 0x65,
-	0x6c, 0x65, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x44, 0x65, 0x6c, 0x65,
-	0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x44, 0x65, 0x6c,
-	0x65, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x37, 0x0a, 0x11, 0x75, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x57, 0x69, 0x74, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x0f, 0x2e,
-	0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x11,
-	0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c,
-	0x79, 0x12, 0x2c, 0x0a, 0x06, 0x69, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x12, 0x0f, 0x2e, 0x62, 0x6c,
-	0x6f, 0x67, 0x2e, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x62,
-	0x6c, 0x6f, 0x67, 0x2e, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42,
-	0x06, 0x5a, 0x04, 0x62, 0x6c, 0x6f, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x79, 0x22, 0x3b, 0x0a, 0x10, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x6f, 0x73, 0x74, 0x5f, 0x69, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x70, 0x6f, 0x73, 0x74, 0x49, 0x64, 0x22, 0x14,
+	0x0a, 0x12, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x22, 0x21, 0x0a, 0x0d, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e,
+	0x66, 0x6f, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x22, 0x27, 0x0a, 0x0f, 0x53, 0x79, 0x73, 0x74, 0x65,
+	0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61,
+	0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65,
+	0x22, 0x12, 0x0a, 0x10, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x6c,
+	0x6c, 0x52, 0x65, 0x71, 0x22, 0x7d, 0x0a, 0x12, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e,
+	0x66, 0x6f, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x30, 0x0a, 0x02, 0x6b, 0x76,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x53, 0x79,
+	0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x2e, 0x4b, 0x76, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x52, 0x02, 0x6b, 0x76, 0x1a, 0x35, 0x0a, 0x07,
+	0x4b, 0x76, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65, 0x79, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c,
+	0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a,
+	0x02, 0x38, 0x01, 0x22, 0x3d, 0x0a, 0x13, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x79, 0x73,
+	0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x12, 0x10, 0x0a, 0x03, 0x6b, 0x65,
+	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a, 0x05,
+	0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c,
+	0x75, 0x65, 0x22, 0x17, 0x0a, 0x15, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x79, 0x73, 0x74,
+	0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0xba, 0x05, 0x0a, 0x04,
+	0x62, 0x6c, 0x6f, 0x67, 0x12, 0x27, 0x0a, 0x05, 0x70, 0x6f, 0x73, 0x74, 0x73, 0x12, 0x0d, 0x2e,
+	0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x62,
+	0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2d, 0x0a,
+	0x09, 0x70, 0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x0e, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x10, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x30, 0x0a, 0x0c,
+	0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x0e, 0x2e, 0x62,
+	0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x10, 0x2e, 0x62,
+	0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2c,
+	0x0a, 0x06, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x62, 0x6c, 0x6f, 0x67,
+	0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x26, 0x0a, 0x04,
+	0x70, 0x6f, 0x73, 0x74, 0x12, 0x0d, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x6f, 0x73, 0x74,
+	0x52, 0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x6f, 0x73, 0x74, 0x52,
+	0x65, 0x70, 0x6c, 0x79, 0x12, 0x2c, 0x0a, 0x06, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x0f,
+	0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a,
+	0x11, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x70,
+	0x6c, 0x79, 0x12, 0x37, 0x0a, 0x11, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x57, 0x69, 0x74, 0x68,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x2c, 0x0a, 0x06, 0x69,
+	0x6e, 0x73, 0x65, 0x72, 0x74, 0x12, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x49, 0x6e, 0x73,
+	0x65, 0x72, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x49, 0x6e,
+	0x73, 0x65, 0x72, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x31, 0x0a, 0x08, 0x63, 0x6f, 0x6d,
+	0x6d, 0x65, 0x6e, 0x74, 0x73, 0x12, 0x0d, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x61, 0x67,
+	0x65, 0x52, 0x65, 0x71, 0x1a, 0x16, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x6d, 0x6d,
+	0x65, 0x6e, 0x74, 0x50, 0x61, 0x67, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x41, 0x0a, 0x0d,
+	0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x16, 0x2e,
+	0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x18, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x43, 0x6f, 0x6d,
+	0x6d, 0x65, 0x6e, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12,
+	0x38, 0x0a, 0x0a, 0x73, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x13, 0x2e,
+	0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x65, 0x71, 0x1a, 0x15, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d,
+	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x41, 0x0a, 0x0d, 0x73, 0x79, 0x73,
+	0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x6c, 0x6c, 0x12, 0x16, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x6c, 0x6c, 0x52,
+	0x65, 0x71, 0x1a, 0x18, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d,
+	0x49, 0x6e, 0x66, 0x6f, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x4a, 0x0a, 0x10,
+	0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f,
+	0x12, 0x19, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x79,
+	0x73, 0x74, 0x65, 0x6d, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a, 0x1b, 0x2e, 0x62, 0x6c,
+	0x6f, 0x67, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x49,
+	0x6e, 0x66, 0x6f, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x06, 0x5a, 0x04, 0x62, 0x6c, 0x6f, 0x67,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -835,47 +1412,70 @@ func file_blog_proto_rawDescGZIP() []byte {
 	return file_blog_proto_rawDescData
 }
 
-var file_blog_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_blog_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_blog_proto_goTypes = []interface{}{
-	(*PageReq)(nil),     // 0: blog.PageReq
-	(*Post)(nil),        // 1: blog.Post
-	(*PageReply)(nil),   // 2: blog.PageReply
-	(*CountReq)(nil),    // 3: blog.CountReq
-	(*CountReply)(nil),  // 4: blog.CountReply
-	(*UpdateReq)(nil),   // 5: blog.UpdateReq
-	(*UpdateReply)(nil), // 6: blog.UpdateReply
-	(*PostReq)(nil),     // 7: blog.PostReq
-	(*PostReply)(nil),   // 8: blog.PostReply
-	(*DeleteReq)(nil),   // 9: blog.DeleteReq
-	(*DeleteReply)(nil), // 10: blog.DeleteReply
-	(*InsertReq)(nil),   // 11: blog.InsertReq
-	(*InsertReply)(nil), // 12: blog.InsertReply
+	(*PageReq)(nil),               // 0: blog.PageReq
+	(*Post)(nil),                  // 1: blog.Post
+	(*Comment)(nil),               // 2: blog.Comment
+	(*PageReply)(nil),             // 3: blog.PageReply
+	(*CommentPageReply)(nil),      // 4: blog.CommentPageReply
+	(*CountReq)(nil),              // 5: blog.CountReq
+	(*CountReply)(nil),            // 6: blog.CountReply
+	(*UpdateReq)(nil),             // 7: blog.UpdateReq
+	(*UpdateReply)(nil),           // 8: blog.UpdateReply
+	(*PostReq)(nil),               // 9: blog.PostReq
+	(*PostReply)(nil),             // 10: blog.PostReply
+	(*DeleteReq)(nil),             // 11: blog.DeleteReq
+	(*DeleteReply)(nil),           // 12: blog.DeleteReply
+	(*InsertReq)(nil),             // 13: blog.InsertReq
+	(*InsertReply)(nil),           // 14: blog.InsertReply
+	(*CommentDeleteReq)(nil),      // 15: blog.CommentDeleteReq
+	(*CommentDeleteReply)(nil),    // 16: blog.CommentDeleteReply
+	(*SystemInfoReq)(nil),         // 17: blog.SystemInfoReq
+	(*SystemInfoReply)(nil),       // 18: blog.SystemInfoReply
+	(*SystemInfoAllReq)(nil),      // 19: blog.SystemInfoAllReq
+	(*SystemInfoAllReply)(nil),    // 20: blog.SystemInfoAllReply
+	(*UpdateSystemInfoReq)(nil),   // 21: blog.UpdateSystemInfoReq
+	(*UpdateSystemInfoReply)(nil), // 22: blog.UpdateSystemInfoReply
+	nil,                           // 23: blog.SystemInfoAllReply.KvEntry
 }
 var file_blog_proto_depIdxs = []int32{
 	1,  // 0: blog.PageReply.posts:type_name -> blog.Post
-	1,  // 1: blog.UpdateReq.post:type_name -> blog.Post
-	1,  // 2: blog.PostReply.post:type_name -> blog.Post
-	0,  // 3: blog.blog.posts:input_type -> blog.PageReq
-	3,  // 4: blog.blog.postCount:input_type -> blog.CountReq
-	3,  // 5: blog.blog.commentCount:input_type -> blog.CountReq
-	5,  // 6: blog.blog.update:input_type -> blog.UpdateReq
-	7,  // 7: blog.blog.post:input_type -> blog.PostReq
-	9,  // 8: blog.blog.delete:input_type -> blog.DeleteReq
-	5,  // 9: blog.blog.updateWithContent:input_type -> blog.UpdateReq
-	11, // 10: blog.blog.insert:input_type -> blog.InsertReq
-	2,  // 11: blog.blog.posts:output_type -> blog.PageReply
-	4,  // 12: blog.blog.postCount:output_type -> blog.CountReply
-	4,  // 13: blog.blog.commentCount:output_type -> blog.CountReply
-	6,  // 14: blog.blog.update:output_type -> blog.UpdateReply
-	8,  // 15: blog.blog.post:output_type -> blog.PostReply
-	10, // 16: blog.blog.delete:output_type -> blog.DeleteReply
-	6,  // 17: blog.blog.updateWithContent:output_type -> blog.UpdateReply
-	12, // 18: blog.blog.insert:output_type -> blog.InsertReply
-	11, // [11:19] is the sub-list for method output_type
-	3,  // [3:11] is the sub-list for method input_type
-	3,  // [3:3] is the sub-list for extension type_name
-	3,  // [3:3] is the sub-list for extension extendee
-	0,  // [0:3] is the sub-list for field type_name
+	2,  // 1: blog.CommentPageReply.comments:type_name -> blog.Comment
+	1,  // 2: blog.UpdateReq.post:type_name -> blog.Post
+	1,  // 3: blog.PostReply.post:type_name -> blog.Post
+	23, // 4: blog.SystemInfoAllReply.kv:type_name -> blog.SystemInfoAllReply.KvEntry
+	0,  // 5: blog.blog.posts:input_type -> blog.PageReq
+	5,  // 6: blog.blog.postCount:input_type -> blog.CountReq
+	5,  // 7: blog.blog.commentCount:input_type -> blog.CountReq
+	7,  // 8: blog.blog.update:input_type -> blog.UpdateReq
+	9,  // 9: blog.blog.post:input_type -> blog.PostReq
+	11, // 10: blog.blog.delete:input_type -> blog.DeleteReq
+	7,  // 11: blog.blog.updateWithContent:input_type -> blog.UpdateReq
+	13, // 12: blog.blog.insert:input_type -> blog.InsertReq
+	0,  // 13: blog.blog.comments:input_type -> blog.PageReq
+	15, // 14: blog.blog.deleteComment:input_type -> blog.CommentDeleteReq
+	17, // 15: blog.blog.systemInfo:input_type -> blog.SystemInfoReq
+	19, // 16: blog.blog.systemInfoAll:input_type -> blog.SystemInfoAllReq
+	21, // 17: blog.blog.updateSystemInfo:input_type -> blog.UpdateSystemInfoReq
+	3,  // 18: blog.blog.posts:output_type -> blog.PageReply
+	6,  // 19: blog.blog.postCount:output_type -> blog.CountReply
+	6,  // 20: blog.blog.commentCount:output_type -> blog.CountReply
+	8,  // 21: blog.blog.update:output_type -> blog.UpdateReply
+	10, // 22: blog.blog.post:output_type -> blog.PostReply
+	12, // 23: blog.blog.delete:output_type -> blog.DeleteReply
+	8,  // 24: blog.blog.updateWithContent:output_type -> blog.UpdateReply
+	14, // 25: blog.blog.insert:output_type -> blog.InsertReply
+	4,  // 26: blog.blog.comments:output_type -> blog.CommentPageReply
+	16, // 27: blog.blog.deleteComment:output_type -> blog.CommentDeleteReply
+	18, // 28: blog.blog.systemInfo:output_type -> blog.SystemInfoReply
+	20, // 29: blog.blog.systemInfoAll:output_type -> blog.SystemInfoAllReply
+	22, // 30: blog.blog.updateSystemInfo:output_type -> blog.UpdateSystemInfoReply
+	18, // [18:31] is the sub-list for method output_type
+	5,  // [5:18] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_blog_proto_init() }
@@ -909,7 +1509,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PageReply); i {
+			switch v := v.(*Comment); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -921,7 +1521,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CountReq); i {
+			switch v := v.(*PageReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -933,7 +1533,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CountReply); i {
+			switch v := v.(*CommentPageReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -945,7 +1545,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateReq); i {
+			switch v := v.(*CountReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -957,7 +1557,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateReply); i {
+			switch v := v.(*CountReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -969,7 +1569,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PostReq); i {
+			switch v := v.(*UpdateReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -981,7 +1581,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PostReply); i {
+			switch v := v.(*UpdateReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -993,7 +1593,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteReq); i {
+			switch v := v.(*PostReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1005,7 +1605,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteReply); i {
+			switch v := v.(*PostReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1017,7 +1617,7 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InsertReq); i {
+			switch v := v.(*DeleteReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1029,7 +1629,127 @@ func file_blog_proto_init() {
 			}
 		}
 		file_blog_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InsertReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*InsertReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CommentDeleteReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CommentDeleteReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SystemInfoReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SystemInfoReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SystemInfoAllReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SystemInfoAllReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateSystemInfoReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_blog_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateSystemInfoReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1047,7 +1767,7 @@ func file_blog_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_blog_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -1081,6 +1801,11 @@ type BlogClient interface {
 	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteReply, error)
 	UpdateWithContent(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateReply, error)
 	Insert(ctx context.Context, in *InsertReq, opts ...grpc.CallOption) (*InsertReply, error)
+	Comments(ctx context.Context, in *PageReq, opts ...grpc.CallOption) (*CommentPageReply, error)
+	DeleteComment(ctx context.Context, in *CommentDeleteReq, opts ...grpc.CallOption) (*CommentDeleteReply, error)
+	SystemInfo(ctx context.Context, in *SystemInfoReq, opts ...grpc.CallOption) (*SystemInfoReply, error)
+	SystemInfoAll(ctx context.Context, in *SystemInfoAllReq, opts ...grpc.CallOption) (*SystemInfoAllReply, error)
+	UpdateSystemInfo(ctx context.Context, in *UpdateSystemInfoReq, opts ...grpc.CallOption) (*UpdateSystemInfoReply, error)
 }
 
 type blogClient struct {
@@ -1163,6 +1888,51 @@ func (c *blogClient) Insert(ctx context.Context, in *InsertReq, opts ...grpc.Cal
 	return out, nil
 }
 
+func (c *blogClient) Comments(ctx context.Context, in *PageReq, opts ...grpc.CallOption) (*CommentPageReply, error) {
+	out := new(CommentPageReply)
+	err := c.cc.Invoke(ctx, "/blog.blog/comments", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogClient) DeleteComment(ctx context.Context, in *CommentDeleteReq, opts ...grpc.CallOption) (*CommentDeleteReply, error) {
+	out := new(CommentDeleteReply)
+	err := c.cc.Invoke(ctx, "/blog.blog/deleteComment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogClient) SystemInfo(ctx context.Context, in *SystemInfoReq, opts ...grpc.CallOption) (*SystemInfoReply, error) {
+	out := new(SystemInfoReply)
+	err := c.cc.Invoke(ctx, "/blog.blog/systemInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogClient) SystemInfoAll(ctx context.Context, in *SystemInfoAllReq, opts ...grpc.CallOption) (*SystemInfoAllReply, error) {
+	out := new(SystemInfoAllReply)
+	err := c.cc.Invoke(ctx, "/blog.blog/systemInfoAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blogClient) UpdateSystemInfo(ctx context.Context, in *UpdateSystemInfoReq, opts ...grpc.CallOption) (*UpdateSystemInfoReply, error) {
+	out := new(UpdateSystemInfoReply)
+	err := c.cc.Invoke(ctx, "/blog.blog/updateSystemInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BlogServer is the server API for Blog service.
 type BlogServer interface {
 	Posts(context.Context, *PageReq) (*PageReply, error)
@@ -1173,6 +1943,11 @@ type BlogServer interface {
 	Delete(context.Context, *DeleteReq) (*DeleteReply, error)
 	UpdateWithContent(context.Context, *UpdateReq) (*UpdateReply, error)
 	Insert(context.Context, *InsertReq) (*InsertReply, error)
+	Comments(context.Context, *PageReq) (*CommentPageReply, error)
+	DeleteComment(context.Context, *CommentDeleteReq) (*CommentDeleteReply, error)
+	SystemInfo(context.Context, *SystemInfoReq) (*SystemInfoReply, error)
+	SystemInfoAll(context.Context, *SystemInfoAllReq) (*SystemInfoAllReply, error)
+	UpdateSystemInfo(context.Context, *UpdateSystemInfoReq) (*UpdateSystemInfoReply, error)
 }
 
 // UnimplementedBlogServer can be embedded to have forward compatible implementations.
@@ -1202,6 +1977,21 @@ func (*UnimplementedBlogServer) UpdateWithContent(context.Context, *UpdateReq) (
 }
 func (*UnimplementedBlogServer) Insert(context.Context, *InsertReq) (*InsertReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Insert not implemented")
+}
+func (*UnimplementedBlogServer) Comments(context.Context, *PageReq) (*CommentPageReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Comments not implemented")
+}
+func (*UnimplementedBlogServer) DeleteComment(context.Context, *CommentDeleteReq) (*CommentDeleteReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteComment not implemented")
+}
+func (*UnimplementedBlogServer) SystemInfo(context.Context, *SystemInfoReq) (*SystemInfoReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SystemInfo not implemented")
+}
+func (*UnimplementedBlogServer) SystemInfoAll(context.Context, *SystemInfoAllReq) (*SystemInfoAllReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SystemInfoAll not implemented")
+}
+func (*UnimplementedBlogServer) UpdateSystemInfo(context.Context, *UpdateSystemInfoReq) (*UpdateSystemInfoReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSystemInfo not implemented")
 }
 
 func RegisterBlogServer(s *grpc.Server, srv BlogServer) {
@@ -1352,6 +2142,96 @@ func _Blog_Insert_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Blog_Comments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogServer).Comments(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.blog/Comments",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogServer).Comments(ctx, req.(*PageReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Blog_DeleteComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CommentDeleteReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogServer).DeleteComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.blog/DeleteComment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogServer).DeleteComment(ctx, req.(*CommentDeleteReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Blog_SystemInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SystemInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogServer).SystemInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.blog/SystemInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogServer).SystemInfo(ctx, req.(*SystemInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Blog_SystemInfoAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SystemInfoAllReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogServer).SystemInfoAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.blog/SystemInfoAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogServer).SystemInfoAll(ctx, req.(*SystemInfoAllReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Blog_UpdateSystemInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateSystemInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogServer).UpdateSystemInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/blog.blog/UpdateSystemInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogServer).UpdateSystemInfo(ctx, req.(*UpdateSystemInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Blog_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "blog.blog",
 	HandlerType: (*BlogServer)(nil),
@@ -1387,6 +2267,26 @@ var _Blog_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "insert",
 			Handler:    _Blog_Insert_Handler,
+		},
+		{
+			MethodName: "comments",
+			Handler:    _Blog_Comments_Handler,
+		},
+		{
+			MethodName: "deleteComment",
+			Handler:    _Blog_DeleteComment_Handler,
+		},
+		{
+			MethodName: "systemInfo",
+			Handler:    _Blog_SystemInfo_Handler,
+		},
+		{
+			MethodName: "systemInfoAll",
+			Handler:    _Blog_SystemInfoAll_Handler,
+		},
+		{
+			MethodName: "updateSystemInfo",
+			Handler:    _Blog_UpdateSystemInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

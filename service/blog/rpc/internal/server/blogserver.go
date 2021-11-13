@@ -60,3 +60,28 @@ func (s *BlogServer) Insert(ctx context.Context, in *blog.InsertReq) (*blog.Inse
 	l := logic.NewInsertLogic(ctx, s.svcCtx)
 	return l.Insert(in)
 }
+
+func (s *BlogServer) Comments(ctx context.Context, in *blog.PageReq) (*blog.CommentPageReply, error) {
+	l := logic.NewCommentsLogic(ctx, s.svcCtx)
+	return l.Comments(in)
+}
+
+func (s *BlogServer) DeleteComment(ctx context.Context, in *blog.CommentDeleteReq) (*blog.CommentDeleteReply, error) {
+	l := logic.NewDeleteCommentLogic(ctx, s.svcCtx)
+	return l.DeleteComment(in)
+}
+
+func (s *BlogServer) SystemInfo(ctx context.Context, in *blog.SystemInfoReq) (*blog.SystemInfoReply, error) {
+	l := logic.NewSystemInfoLogic(ctx, s.svcCtx)
+	return l.SystemInfo(in)
+}
+
+func (s *BlogServer) SystemInfoAll(ctx context.Context, in *blog.SystemInfoAllReq) (*blog.SystemInfoAllReply, error) {
+	l := logic.NewSystemInfoAllLogic(ctx, s.svcCtx)
+	return l.SystemInfoAll(in)
+}
+
+func (s *BlogServer) UpdateSystemInfo(ctx context.Context, in *blog.UpdateSystemInfoReq) (*blog.UpdateSystemInfoReply, error) {
+	l := logic.NewUpdateSystemInfoLogic(ctx, s.svcCtx)
+	return l.UpdateSystemInfo(in)
+}

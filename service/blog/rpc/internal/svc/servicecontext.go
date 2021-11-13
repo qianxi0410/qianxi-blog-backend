@@ -12,6 +12,7 @@ type ServiceContext struct {
 	Config       config.Config
 	PostModel    model.PostsModel
 	CommentModel model.CommentsModel
+	SystemModel  model.SystemModel
 	Redis        *redis.Client
 }
 
@@ -22,6 +23,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config:       c,
 		PostModel:    model.NewPostsModel(conn, c.CacheRedis),
 		CommentModel: model.NewCommentsModel(conn, c.CacheRedis),
+		SystemModel:  model.NewSystemModel(conn),
 		Redis: redis.NewClient(&redis.Options{
 			Addr:     c.Redis.Host,
 			Password: c.Redis.Pass,

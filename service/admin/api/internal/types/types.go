@@ -48,3 +48,13 @@ type InsertReq struct {
 	Tags        string `json:"tags"`
 	Path        string `json:"path"`
 }
+
+type DeleteCommentReq struct {
+	Id     int64 `path:"id"`
+	PostId int64 `path:"postid"`
+}
+
+type UpdateSystemReq struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
