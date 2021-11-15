@@ -79,6 +79,15 @@ service admin-api {
 }
 
 @server(
+	group: userApi
+	jwt: Jwt
+)
+service admin-api {
+	@handler LoginValid
+	get /admin/user/tokenvalid () returns (Reply)
+}
+
+@server(
 	group: blogRpc
 	jwt: Jwt
 )

@@ -25,6 +25,17 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 	engine.AddRoutes(
 		[]rest.Route{
 			{
+				Method:  http.MethodGet,
+				Path:    "/admin/user/tokenvalid",
+				Handler: userApi.LoginValidHandler(serverCtx),
+			},
+		},
+		rest.WithJwt(serverCtx.Config.Jwt.AccessSecret),
+	)
+
+	engine.AddRoutes(
+		[]rest.Route{
+			{
 				Method:  http.MethodPost,
 				Path:    "/admin/post/update",
 				Handler: blogRpc.UpdateHandler(serverCtx),

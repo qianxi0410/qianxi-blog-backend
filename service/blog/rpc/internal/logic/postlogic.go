@@ -61,6 +61,7 @@ func (l *PostLogic) Post(in *blog.PostReq) (*blog.PostReply, error) {
 
 	var bs []byte
 	//bs, err = ioutil.ReadFile(post.Post.Path)
+	// TODO:change url
 	bs, err = ioutil.ReadFile("E:\\idea_workspace\\qianxi-blog-backend-distribution\\README.md")
 
 	if err != nil {
