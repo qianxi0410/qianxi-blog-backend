@@ -21,8 +21,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	return &ServiceContext{
 		Config:       c,
-		PostModel:    model.NewPostsModel(conn, c.CacheRedis),
-		CommentModel: model.NewCommentsModel(conn, c.CacheRedis),
+		PostModel:    model.NewPostsModel(conn),
+		CommentModel: model.NewCommentsModel(conn),
 		SystemModel:  model.NewSystemModel(conn),
 		Redis: redis.NewClient(&redis.Options{
 			Addr:     c.Redis.Host,

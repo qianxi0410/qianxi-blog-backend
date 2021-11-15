@@ -6,7 +6,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tal-tech/go-zero/core/stores/cache"
 	"github.com/tal-tech/go-zero/core/stores/sqlc"
 	"github.com/tal-tech/go-zero/core/stores/sqlx"
 	"github.com/tal-tech/go-zero/core/stringx"
@@ -36,7 +35,7 @@ type (
 	}
 
 	defaultCommentsModel struct {
-		sqlc.CachedConn
+		conn  sqlx.SqlConn
 		table string
 	}
 
@@ -52,17 +51,17 @@ type (
 	}
 )
 
-func NewCommentsModel(conn sqlx.SqlConn, c cache.CacheConf) CommentsModel {
+func NewCommentsModel(conn sqlx.SqlConn) CommentsModel {
 	return &defaultCommentsModel{
-		CachedConn: sqlc.NewConn(conn, c),
-		table:      "`comments`",
+		conn:  conn,
+		table: "`comments`",
 	}
 }
 func (m *defaultCommentsModel) CommentsAll() ([]Comments, error) {
 	var ret []Comments
 
 	query := fmt.Sprintf("select * from %s", m.table)
-	err := m.QueryRowsNoCache(&ret, query)
+	err := m.conn.QueryRows(&ret, query)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +73,7 @@ func (m *defaultCommentsModel) Comments(size int64, offset int64) ([]Comments, e
 	var ret []Comments
 
 	query := fmt.Sprintf("select * from %s limit %d offset %d", m.table, size, offset)
-	err := m.QueryRowsNoCache(&ret, query)
+	err := m.conn.QueryRows(&ret, query)
 	if err != nil {
 		return nil, err
 	}
@@ -84,14 +83,14 @@ func (m *defaultCommentsModel) Comments(size int64, offset int64) ([]Comments, e
 
 func (m *defaultCommentsModel) DeleteByPostId(postId int64) error {
 	query := fmt.Sprintf("delete from %s where `post_id` = ?", m.table)
-	_, err := m.ExecNoCache(query, postId)
+	_, err := m.conn.Exec(query, postId)
 	return err
 }
 
 func (m *defaultCommentsModel) Count() (int64, error) {
 	var ret int64
 	query := fmt.Sprintf("select count(1) from %s", m.table)
-	err := m.QueryRowNoCache(&ret, query)
+	err := m.conn.QueryRow(&ret, query)
 
 	if err != nil {
 		return -1, err
@@ -104,7 +103,7 @@ func (m *defaultCommentsModel) CommentsWithPostId(postId int64) ([]Comments, err
 	var ret []Comments
 
 	query := fmt.Sprintf("select * from %s where post_id = %d", m.table, postId)
-	err := m.QueryRowsNoCache(&ret, query)
+	err := m.conn.QueryRows(&ret, query)
 	if err != nil {
 		return nil, err
 	}
@@ -114,18 +113,15 @@ func (m *defaultCommentsModel) CommentsWithPostId(postId int64) ([]Comments, err
 
 func (m *defaultCommentsModel) Insert(data Comments) (sql.Result, error) {
 	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?)", m.table, commentsRowsExpectAutoSet)
-	ret, err := m.ExecNoCache(query, data.CreatedAt, data.UpdateedAt, data.Content, data.Login, data.Name, data.Avatar, data.PostId)
+	ret, err := m.conn.Exec(query, data.CreatedAt, data.UpdateedAt, data.Content, data.Login, data.Name, data.Avatar, data.PostId)
 
 	return ret, err
 }
 
 func (m *defaultCommentsModel) FindOne(id int64) (*Comments, error) {
-	blogCommentsIdKey := fmt.Sprintf("%s%v", cacheBlogCommentsIdPrefix, id)
+	query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", commentsRows, m.table)
 	var resp Comments
-	err := m.QueryRow(&resp, blogCommentsIdKey, func(conn sqlx.SqlConn, v interface{}) error {
-		query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", commentsRows, m.table)
-		return conn.QueryRow(v, query, id)
-	})
+	err := m.conn.QueryRow(&resp, query, id)
 	switch err {
 	case nil:
 		return &resp, nil
@@ -137,21 +133,14 @@ func (m *defaultCommentsModel) FindOne(id int64) (*Comments, error) {
 }
 
 func (m *defaultCommentsModel) Update(data Comments) error {
-	blogCommentsIdKey := fmt.Sprintf("%s%v", cacheBlogCommentsIdPrefix, data.Id)
-	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, commentsRowsWithPlaceHolder)
-		return conn.Exec(query, data.CreatedAt, data.UpdateedAt, data.Content, data.Login, data.Name, data.Avatar, data.PostId, data.Id)
-	}, blogCommentsIdKey)
+	query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, commentsRowsWithPlaceHolder)
+	_, err := m.conn.Exec(query, data.CreatedAt, data.UpdateedAt, data.Content, data.Login, data.Name, data.Avatar, data.PostId, data.Id)
 	return err
 }
 
 func (m *defaultCommentsModel) Delete(id int64) error {
-
-	blogCommentsIdKey := fmt.Sprintf("%s%v", cacheBlogCommentsIdPrefix, id)
-	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
-		return conn.Exec(query, id)
-	}, blogCommentsIdKey)
+	query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
+	_, err := m.conn.Exec(query, id)
 	return err
 }
 

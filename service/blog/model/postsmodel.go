@@ -6,7 +6,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tal-tech/go-zero/core/stores/cache"
 	"github.com/tal-tech/go-zero/core/stores/sqlc"
 	"github.com/tal-tech/go-zero/core/stores/sqlx"
 	"github.com/tal-tech/go-zero/core/stringx"
@@ -38,7 +37,7 @@ type (
 	}
 
 	defaultPostsModel struct {
-		sqlc.CachedConn
+		conn  sqlx.SqlConn
 		table string
 	}
 
@@ -56,17 +55,17 @@ type (
 	}
 )
 
-func NewPostsModel(conn sqlx.SqlConn, c cache.CacheConf) PostsModel {
+func NewPostsModel(conn sqlx.SqlConn) PostsModel {
 	return &defaultPostsModel{
-		CachedConn: sqlc.NewConn(conn, c),
-		table:      "`posts`",
+		conn:  conn,
+		table: "`posts`",
 	}
 }
 
 func (m *defaultPostsModel) MaxId() (int64, error) {
 	var ret int64
 	query := fmt.Sprintf("select max(id) from %s", m.table)
-	err := m.QueryRowNoCache(&ret, query)
+	err := m.conn.QueryRow(&ret, query)
 
 	if err != nil {
 		return -1, err
@@ -79,7 +78,7 @@ func (m *defaultPostsModel) Title(id int64) (string, error) {
 	var ret string
 
 	query := fmt.Sprintf("select title from %s where id = %d", m.table, id)
-	err := m.QueryRowNoCache(&ret, query)
+	err := m.conn.QueryRow(&ret, query)
 
 	if err != nil {
 		return "", err
@@ -91,7 +90,7 @@ func (m *defaultPostsModel) Title(id int64) (string, error) {
 func (m *defaultPostsModel) PostsWithTag(offset, size int64, tag string) ([]Posts, error) {
 	var ret []Posts
 	query := fmt.Sprintf("select * from %s where tags like '%%%s%%' order by created_at desc limit %d offset %d", m.table, tag, size, offset)
-	err := m.QueryRowsNoCache(&ret, query)
+	err := m.conn.QueryRows(&ret, query)
 
 	if err != nil {
 		return nil, err
@@ -102,7 +101,7 @@ func (m *defaultPostsModel) PostsWithTag(offset, size int64, tag string) ([]Post
 func (m *defaultPostsModel) PostsAll() ([]Posts, error) {
 	var ret []Posts
 	query := fmt.Sprintf("select * from %s order by created_at desc", m.table)
-	err := m.QueryRowsNoCache(&ret, query)
+	err := m.conn.QueryRows(&ret, query)
 
 	if err != nil {
 		return nil, err
@@ -113,7 +112,7 @@ func (m *defaultPostsModel) PostsAll() ([]Posts, error) {
 func (m *defaultPostsModel) Posts(offset, size int64) ([]Posts, error) {
 	var ret []Posts
 	query := fmt.Sprintf("select * from %s order by created_at desc limit %d offset %d", m.table, size, offset)
-	err := m.QueryRowsNoCache(&ret, query)
+	err := m.conn.QueryRows(&ret, query)
 
 	if err != nil {
 		return nil, err
@@ -124,7 +123,7 @@ func (m *defaultPostsModel) Posts(offset, size int64) ([]Posts, error) {
 func (m *defaultPostsModel) CountWtihTag(tag string) (int64, error) {
 	var ret int64
 	query := fmt.Sprintf("select count(1) from %s where tags like '%%%s%%'", m.table, tag)
-	err := m.QueryRowNoCache(&ret, query)
+	err := m.conn.QueryRow(&ret, query)
 
 	if err != nil {
 		return -1, err
@@ -136,7 +135,7 @@ func (m *defaultPostsModel) CountWtihTag(tag string) (int64, error) {
 func (m *defaultPostsModel) Count() (int64, error) {
 	var ret int64
 	query := fmt.Sprintf("select count(1) from %s", m.table)
-	err := m.QueryRowNoCache(&ret, query)
+	err := m.conn.QueryRow(&ret, query)
 
 	if err != nil {
 		return -1, err
@@ -147,18 +146,15 @@ func (m *defaultPostsModel) Count() (int64, error) {
 
 func (m *defaultPostsModel) Insert(data Posts) (sql.Result, error) {
 	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, postsRowsExpectAutoSet)
-	ret, err := m.ExecNoCache(query, data.Id, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags)
+	ret, err := m.conn.Exec(query, data.Id, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags)
 	fmt.Println(query)
 	return ret, err
 }
 
 func (m *defaultPostsModel) FindOne(id int64) (*Posts, error) {
-	blogPostsIdKey := fmt.Sprintf("%s%v", cacheBlogPostsIdPrefix, id)
+	query := fmt.Sprintf("select %s from %s where `id` = ? limit 1", postsRows, m.table)
 	var resp Posts
-	err := m.QueryRow(&resp, blogPostsIdKey, func(conn sqlx.SqlConn, v interface{}) error {
-		query := fmt.Sprintf("select * from %s where `id` = ? limit 1", m.table)
-		return conn.QueryRow(v, query, id)
-	})
+	err := m.conn.QueryRow(&resp, query, id)
 	switch err {
 	case nil:
 		return &resp, nil
@@ -170,22 +166,14 @@ func (m *defaultPostsModel) FindOne(id int64) (*Posts, error) {
 }
 
 func (m *defaultPostsModel) Update(data Posts) error {
-	blogPostsIdKey := fmt.Sprintf("%s%v", cacheBlogPostsIdPrefix, data.Id)
-	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, postsRowsWithPlaceHolder)
-		fmt.Println(query)
-		return conn.Exec(query, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Id)
-	}, blogPostsIdKey)
+	query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, postsRowsWithPlaceHolder)
+	_, err := m.conn.Exec(query, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Id)
 	return err
 }
 
 func (m *defaultPostsModel) Delete(id int64) error {
-
-	blogPostsIdKey := fmt.Sprintf("%s%v", cacheBlogPostsIdPrefix, id)
-	_, err := m.Exec(func(conn sqlx.SqlConn) (result sql.Result, err error) {
-		query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
-		return conn.Exec(query, id)
-	}, blogPostsIdKey)
+	query := fmt.Sprintf("delete from %s where `id` = ?", m.table)
+	_, err := m.conn.Exec(query, id)
 	return err
 }
 
