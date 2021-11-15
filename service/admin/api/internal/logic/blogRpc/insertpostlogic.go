@@ -31,6 +31,7 @@ func (l *InsertPostLogic) InsertPost(req types.InsertReq) (*types.Reply, error) 
 		Url:         req.Url,
 		Path:        req.Path,
 		Tags:        req.Tags,
+		Blur:        req.Blur,
 	})
 
 	if err != nil {

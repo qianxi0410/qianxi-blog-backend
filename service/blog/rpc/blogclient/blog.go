@@ -12,29 +12,29 @@ import (
 )
 
 type (
-	DeleteReq             = blog.DeleteReq
-	DeleteReply           = blog.DeleteReply
-	CommentDeleteReply    = blog.CommentDeleteReply
-	SystemInfoReq         = blog.SystemInfoReq
-	PageReq               = blog.PageReq
-	CountReq              = blog.CountReq
-	PostReq               = blog.PostReq
-	UpdateReq             = blog.UpdateReq
-	SystemInfoReply       = blog.SystemInfoReply
+	InsertReply           = blog.InsertReply
 	SystemInfoAllReq      = blog.SystemInfoAllReq
-	UpdateSystemInfoReply = blog.UpdateSystemInfoReply
+	UpdateReq             = blog.UpdateReq
 	Comment               = blog.Comment
 	CommentPageReply      = blog.CommentPageReply
-	CountReply            = blog.CountReply
-	PostReply             = blog.PostReply
-	CommentDeleteReq      = blog.CommentDeleteReq
-	SystemInfoAllReply    = blog.SystemInfoAllReply
+	CommentDeleteReply    = blog.CommentDeleteReply
+	UpdateSystemInfoReply = blog.UpdateSystemInfoReply
+	PageReq               = blog.PageReq
+	DeleteReply           = blog.DeleteReply
 	InsertReq             = blog.InsertReq
-	InsertReply           = blog.InsertReply
-	UpdateSystemInfoReq   = blog.UpdateSystemInfoReq
-	Post                  = blog.Post
+	SystemInfoReply       = blog.SystemInfoReply
+	SystemInfoAllReply    = blog.SystemInfoAllReply
+	CountReq              = blog.CountReq
 	PageReply             = blog.PageReply
+	CountReply            = blog.CountReply
 	UpdateReply           = blog.UpdateReply
+	PostReq               = blog.PostReq
+	PostReply             = blog.PostReply
+	DeleteReq             = blog.DeleteReq
+	CommentDeleteReq      = blog.CommentDeleteReq
+	Post                  = blog.Post
+	UpdateSystemInfoReq   = blog.UpdateSystemInfoReq
+	SystemInfoReq         = blog.SystemInfoReq
 
 	Blog interface {
 		Posts(ctx context.Context, in *PageReq) (*PageReply, error)

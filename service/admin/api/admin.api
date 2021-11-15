@@ -39,6 +39,7 @@ type (
 		Path        string `json:"path"`
 		Page        int64  `json:"page"`
 		Size        int64  `json:"size"`
+		Blur        int32  `json:"blur"`
 	}
 
 	PostReq {
@@ -57,6 +58,7 @@ type (
 		Description string `json:"description"`
 		Tags        string `json:"tags"`
 		Path        string `json:"path"`
+		Blur        int32  `json:"blur"`
 	}
 
 	DeleteCommentReq {
@@ -99,7 +101,7 @@ service admin-api {
 	delete /admin/post/id/:id/page/:page/size/:size (DeleteReq) returns (Reply);
 	
 	@handler UpdatWithContent
-	post  /admin/post/update/content (UpdateReq) returns (Reply);
+	post /admin/post/update/content (UpdateReq) returns (Reply);
 	
 	@handler InsertPost
 	post /admin/post/insert (InsertReq) returns (Reply);

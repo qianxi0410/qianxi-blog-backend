@@ -29,6 +29,7 @@ type UpdateReq struct {
 	Path        string `json:"path"`
 	Page        int64  `json:"page"`
 	Size        int64  `json:"size"`
+	Blur        int32  `json:"blur"`
 }
 
 type PostReq struct {
@@ -47,6 +48,7 @@ type InsertReq struct {
 	Description string `json:"description"`
 	Tags        string `json:"tags"`
 	Path        string `json:"path"`
+	Blur        int32  `json:"blur"`
 }
 
 type DeleteCommentReq struct {

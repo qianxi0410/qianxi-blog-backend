@@ -51,6 +51,7 @@ func (l *PostLogic) Post(in *blog.PostReq) (*blog.PostReply, error) {
 			Url:         post.Post.Url,
 			Path:        post.Post.Path,
 			Tags:        post.Post.Tags.String,
+			Blur:        post.Post.Blur,
 		}}, nil
 	}
 
@@ -81,6 +82,7 @@ func (l *PostLogic) Post(in *blog.PostReq) (*blog.PostReply, error) {
 			Url:         post.Post.Url,
 			Path:        post.Post.Path,
 			Tags:        post.Post.Tags.String,
+			Blur:        post.Post.Blur,
 		},
 	}, nil
 }

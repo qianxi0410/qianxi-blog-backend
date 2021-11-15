@@ -67,6 +67,7 @@ func (l *UpdateWithContentLogic) UpdateWithContent(in *blog.UpdateReq) (*blog.Up
 			Valid:  true,
 			String: in.Post.Tags,
 		},
+		Blur: in.Post.Blur,
 	}
 
 	go func() {

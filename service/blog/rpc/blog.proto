@@ -20,6 +20,7 @@ message Post {
   string url = 8;
   string path = 9;
   string tags = 10;
+  int32 blur = 11;
 }
 
 message Comment {
@@ -80,6 +81,7 @@ message InsertReq {
   string url = 3;
   string path = 4;
   string tags = 5;
+  int32 blur = 6;
 }
 
 message InsertReply {

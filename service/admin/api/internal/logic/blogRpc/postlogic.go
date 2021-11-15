@@ -57,6 +57,7 @@ func (l *PostLogic) Post(req types.PostReq) (*types.Reply, error) {
 			Valid:  true,
 			String: post.Post.Tags,
 		},
+		Blur: post.Post.Blur,
 	}
 
 	return &types.Reply{

@@ -43,6 +43,7 @@ type (
 		Url         string         `db:"url" json:"url"`
 		Path        string         `db:"path" json:"path"`
 		Tags        sql.NullString `db:"tags" json:"tags"`
+		Blur        int32          `db:"blur" json:"blur"`
 	}
 )
 
@@ -55,7 +56,7 @@ func NewPostsModel(conn sqlx.SqlConn) PostsModel {
 
 func (m *defaultPostsModel) Insert(data Posts) (sql.Result, error) {
 	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, postsRowsExpectAutoSet)
-	ret, err := m.conn.Exec(query, data.Id, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags)
+	ret, err := m.conn.Exec(query, data.Id, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Blur)
 	return ret, err
 }
 
@@ -75,7 +76,7 @@ func (m *defaultPostsModel) FindOne(id int64) (*Posts, error) {
 
 func (m *defaultPostsModel) Update(data Posts) error {
 	query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, postsRowsWithPlaceHolder)
-	_, err := m.conn.Exec(query, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Id)
+	_, err := m.conn.Exec(query, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Blur, data.Id)
 	return err
 }
 

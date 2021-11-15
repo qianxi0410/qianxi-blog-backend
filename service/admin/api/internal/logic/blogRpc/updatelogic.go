@@ -34,6 +34,7 @@ func (l *UpdateLogic) Update(req types.UpdateReq) (*types.Reply, error) {
 		Url:         req.Url,
 		Path:        req.Path,
 		Tags:        req.Tags,
+		Blur:        req.Blur,
 	}, Page: req.Page, Size: req.Size})
 
 	if err != nil {

@@ -53,6 +53,7 @@ func (l *PostsLogic) Posts(in *blog.PageReq) (*blog.PageReply, error) {
 				Url:         all[i].Url,
 				Path:        all[i].Path,
 				Tags:        all[i].Tags.String,
+				Blur:        all[i].Blur,
 			})
 		}
 
@@ -98,6 +99,7 @@ func (l *PostsLogic) Posts(in *blog.PageReq) (*blog.PageReply, error) {
 			Url:         posts[i].Url,
 			Path:        posts[i].Path,
 			Tags:        posts[i].Tags.String,
+			Blur:        posts[i].Blur,
 		})
 	}
 

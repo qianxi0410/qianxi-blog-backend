@@ -70,6 +70,7 @@ func (l *InsertLogic) Insert(in *blog.InsertReq) (*blog.InsertReply, error) {
 			Valid:  true,
 			String: in.Tags,
 		},
+		Blur: in.Blur,
 	}
 
 	err = utils.WriteFile(path, []byte(in.Path), 0766)

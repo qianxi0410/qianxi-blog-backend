@@ -64,6 +64,7 @@ func (l *PostsLogic) Posts(req types.PageReq) (*types.Reply, error) {
 				String: posts.Posts[i].Tags,
 				Valid:  true,
 			},
+			Blur: posts.Posts[i].Blur,
 		})
 	}
 

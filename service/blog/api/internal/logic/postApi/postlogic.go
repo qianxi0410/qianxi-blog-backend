@@ -57,8 +57,9 @@ func (l *PostLogic) Post(req types.PostReq) (*types.Reply, error) {
 	var bs []byte
 	go func() {
 		defer wg.Done()
-		bs, err = ioutil.ReadFile(post.Post.Path)
-
+		// TODO:
+		//bs, err = ioutil.ReadFile(post.Post.Path)
+		bs, err = ioutil.ReadFile("E:\\idea_workspace\\qianxi-blog-backend-distribution\\README.md")
 		if err != nil {
 			panic(err)
 		}

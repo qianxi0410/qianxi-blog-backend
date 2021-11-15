@@ -52,6 +52,7 @@ type (
 		Url         string         `db:"url" json:"url"`
 		Path        string         `db:"path" json:"path"`
 		Tags        sql.NullString `db:"tags" json:"tags"`
+		Blur        int32          `db:"blur" json:"blur"`
 	}
 )
 
@@ -145,8 +146,8 @@ func (m *defaultPostsModel) Count() (int64, error) {
 }
 
 func (m *defaultPostsModel) Insert(data Posts) (sql.Result, error) {
-	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, postsRowsExpectAutoSet)
-	ret, err := m.conn.Exec(query, data.Id, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags)
+	query := fmt.Sprintf("insert into %s (%s) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", m.table, postsRowsExpectAutoSet)
+	ret, err := m.conn.Exec(query, data.Id, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Blur)
 	fmt.Println(query)
 	return ret, err
 }
@@ -167,7 +168,8 @@ func (m *defaultPostsModel) FindOne(id int64) (*Posts, error) {
 
 func (m *defaultPostsModel) Update(data Posts) error {
 	query := fmt.Sprintf("update %s set %s where `id` = ?", m.table, postsRowsWithPlaceHolder)
-	_, err := m.conn.Exec(query, data.CreatedAt, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Id)
+	fmt.Println(query)
+	_, err := m.conn.Exec(query, data.UpdatedAt, data.Title, data.Description, data.Pre, data.Next, data.Url, data.Path, data.Tags, data.Blur, data.Id)
 	return err
 }
 

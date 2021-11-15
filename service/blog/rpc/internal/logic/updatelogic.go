@@ -49,6 +49,7 @@ func (l *UpdateLogic) Update(in *blog.UpdateReq) (*blog.UpdateReply, error) {
 			Valid:  true,
 			String: in.Post.Tags,
 		},
+		Blur: in.Post.Blur,
 	}
 
 	go func() {
