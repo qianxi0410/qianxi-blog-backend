@@ -94,3 +94,11 @@ service blog-api {
 	@handler Oauth2
 	get /oauth2/code/:code (Oauth2Req) returns (Reply)
 }
+
+@server(
+	group: systemApi
+)
+service blog-api {
+	@handler SystemInfo
+	get /system/info () returns (Reply)
+}

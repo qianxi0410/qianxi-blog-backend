@@ -7,6 +7,7 @@ import (
 	commentApi "qianxi-blog/service/blog/api/internal/handler/commentApi"
 	oauth2Api "qianxi-blog/service/blog/api/internal/handler/oauth2Api"
 	postApi "qianxi-blog/service/blog/api/internal/handler/postApi"
+	systemApi "qianxi-blog/service/blog/api/internal/handler/systemApi"
 	"qianxi-blog/service/blog/api/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
@@ -64,6 +65,16 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Method:  http.MethodGet,
 				Path:    "/oauth2/code/:code",
 				Handler: oauth2Api.Oauth2Handler(serverCtx),
+			},
+		},
+	)
+
+	engine.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/system/info",
+				Handler: systemApi.SystemInfoHandler(serverCtx),
 			},
 		},
 	)

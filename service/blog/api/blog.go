@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"qianxi-blog/service/blog/api/internal/middlewares"
 
 	"github.com/tal-tech/go-zero/rest/httpx"
 
@@ -25,8 +26,10 @@ func main() {
 	conf.MustLoad(*configFile, &c)
 
 	ctx := svc.NewServiceContext(c)
-	server := rest.MustNewServer(c.RestConf)
+	//server := rest.MustNewServer(c.RestConf)
+	server := rest.MustNewServer(c.RestConf, rest.WithNotAllowedHandler(middlewares.NewCorsMiddleware().Handler()))
 	defer server.Stop()
+	server.Use(middlewares.NewCorsMiddleware().Handle)
 
 	httpx.SetErrorHandler(errorHandler.ReturnErrorHandler)
 	handler.RegisterHandlers(server, ctx)
