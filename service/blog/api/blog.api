@@ -95,10 +95,19 @@ service blog-api {
 	get /oauth2/code/:code (Oauth2Req) returns (Reply)
 }
 
+type (
+	VisitReq {
+		Uri string `json:"uri"`
+	}
+)
+
 @server(
 	group: systemApi
 )
 service blog-api {
 	@handler SystemInfo
 	get /system/info () returns (Reply)
+	
+	@handler SystemVisit
+	post /system/visit (VisitReq) returns (Reply)
 }

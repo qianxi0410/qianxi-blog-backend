@@ -85,3 +85,18 @@ func (s *BlogServer) UpdateSystemInfo(ctx context.Context, in *blog.UpdateSystem
 	l := logic.NewUpdateSystemInfoLogic(ctx, s.svcCtx)
 	return l.UpdateSystemInfo(in)
 }
+
+func (s *BlogServer) VisitedCount(ctx context.Context, in *blog.CountReq) (*blog.CountReply, error) {
+	l := logic.NewVisitedCountLogic(ctx, s.svcCtx)
+	return l.VisitedCount(in)
+}
+
+func (s *BlogServer) PeopleCount(ctx context.Context, in *blog.CountReq) (*blog.CountReply, error) {
+	l := logic.NewPeopleCountLogic(ctx, s.svcCtx)
+	return l.PeopleCount(in)
+}
+
+func (s *BlogServer) WeekCount(ctx context.Context, in *blog.CountReq) (*blog.WeekCountReply, error) {
+	l := logic.NewWeekCountLogic(ctx, s.svcCtx)
+	return l.WeekCount(in)
+}

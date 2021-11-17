@@ -122,6 +122,10 @@ message UpdateSystemInfoReply {
 
 }
 
+message WeekCountReply {
+  repeated int64 count = 1;
+}
+
 service blog {
   rpc posts(PageReq) returns(PageReply);
 
@@ -148,4 +152,10 @@ service blog {
   rpc systemInfoAll(SystemInfoAllReq) returns (SystemInfoAllReply);
 
   rpc updateSystemInfo(UpdateSystemInfoReq) returns (UpdateSystemInfoReply);
+
+  rpc visitedCount(CountReq) returns (CountReply);
+
+  rpc peopleCount(CountReq) returns (CountReply);
+
+  rpc weekCount(CountReq) returns (WeekCountReply);
 }

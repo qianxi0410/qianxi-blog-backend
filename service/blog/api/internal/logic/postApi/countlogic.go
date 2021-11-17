@@ -30,7 +30,6 @@ func NewCountLogic(ctx context.Context, svcCtx *svc.ServiceContext) CountLogic {
 
 func (l *CountLogic) Count() (*types.Reply, error) {
 	var count int64
-
 	count, err := l.svcCtx.Redis.Get(context.Background(), key.PostsCount()).Int64()
 
 	if err != redis.Nil {

@@ -42,3 +42,7 @@ type SaveReq struct {
 type Oauth2Req struct {
 	Code string `path:"code"`
 }
+
+type VisitReq struct {
+	Uri string `json:"uri"`
+}

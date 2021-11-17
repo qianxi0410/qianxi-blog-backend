@@ -12,29 +12,30 @@ import (
 )
 
 type (
-	InsertReply           = blog.InsertReply
-	SystemInfoAllReq      = blog.SystemInfoAllReq
-	UpdateReq             = blog.UpdateReq
-	Comment               = blog.Comment
 	CommentPageReply      = blog.CommentPageReply
-	CommentDeleteReply    = blog.CommentDeleteReply
-	UpdateSystemInfoReply = blog.UpdateSystemInfoReply
-	PageReq               = blog.PageReq
-	DeleteReply           = blog.DeleteReply
-	InsertReq             = blog.InsertReq
+	CountReply            = blog.CountReply
+	UpdateReq             = blog.UpdateReq
+	PostReq               = blog.PostReq
+	DeleteReq             = blog.DeleteReq
+	WeekCountReply        = blog.WeekCountReply
+	Comment               = blog.Comment
+	CommentDeleteReq      = blog.CommentDeleteReq
 	SystemInfoReply       = blog.SystemInfoReply
 	SystemInfoAllReply    = blog.SystemInfoAllReply
-	CountReq              = blog.CountReq
+	UpdateSystemInfoReply = blog.UpdateSystemInfoReply
 	PageReply             = blog.PageReply
-	CountReply            = blog.CountReply
-	UpdateReply           = blog.UpdateReply
-	PostReq               = blog.PostReq
-	PostReply             = blog.PostReply
-	DeleteReq             = blog.DeleteReq
-	CommentDeleteReq      = blog.CommentDeleteReq
-	Post                  = blog.Post
-	UpdateSystemInfoReq   = blog.UpdateSystemInfoReq
+	InsertReq             = blog.InsertReq
 	SystemInfoReq         = blog.SystemInfoReq
+	SystemInfoAllReq      = blog.SystemInfoAllReq
+	UpdateSystemInfoReq   = blog.UpdateSystemInfoReq
+	PageReq               = blog.PageReq
+	Post                  = blog.Post
+	CountReq              = blog.CountReq
+	UpdateReply           = blog.UpdateReply
+	PostReply             = blog.PostReply
+	DeleteReply           = blog.DeleteReply
+	InsertReply           = blog.InsertReply
+	CommentDeleteReply    = blog.CommentDeleteReply
 
 	Blog interface {
 		Posts(ctx context.Context, in *PageReq) (*PageReply, error)
@@ -50,6 +51,9 @@ type (
 		SystemInfo(ctx context.Context, in *SystemInfoReq) (*SystemInfoReply, error)
 		SystemInfoAll(ctx context.Context, in *SystemInfoAllReq) (*SystemInfoAllReply, error)
 		UpdateSystemInfo(ctx context.Context, in *UpdateSystemInfoReq) (*UpdateSystemInfoReply, error)
+		VisitedCount(ctx context.Context, in *CountReq) (*CountReply, error)
+		PeopleCount(ctx context.Context, in *CountReq) (*CountReply, error)
+		WeekCount(ctx context.Context, in *CountReq) (*WeekCountReply, error)
 	}
 
 	defaultBlog struct {
@@ -126,4 +130,19 @@ func (m *defaultBlog) SystemInfoAll(ctx context.Context, in *SystemInfoAllReq) (
 func (m *defaultBlog) UpdateSystemInfo(ctx context.Context, in *UpdateSystemInfoReq) (*UpdateSystemInfoReply, error) {
 	client := blog.NewBlogClient(m.cli.Conn())
 	return client.UpdateSystemInfo(ctx, in)
+}
+
+func (m *defaultBlog) VisitedCount(ctx context.Context, in *CountReq) (*CountReply, error) {
+	client := blog.NewBlogClient(m.cli.Conn())
+	return client.VisitedCount(ctx, in)
+}
+
+func (m *defaultBlog) PeopleCount(ctx context.Context, in *CountReq) (*CountReply, error) {
+	client := blog.NewBlogClient(m.cli.Conn())
+	return client.PeopleCount(ctx, in)
+}
+
+func (m *defaultBlog) WeekCount(ctx context.Context, in *CountReq) (*WeekCountReply, error) {
+	client := blog.NewBlogClient(m.cli.Conn())
+	return client.WeekCount(ctx, in)
 }

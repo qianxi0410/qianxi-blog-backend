@@ -76,6 +76,11 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/system/info",
 				Handler: systemApi.SystemInfoHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/system/visit",
+				Handler: systemApi.SystemVisitHandler(serverCtx),
+			},
 		},
 	)
 }
