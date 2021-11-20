@@ -31,11 +31,10 @@ func NewInsertLogic(ctx context.Context, svcCtx *svc.ServiceContext) *InsertLogi
 
 func (l *InsertLogic) Insert(in *blog.InsertReq) (*blog.InsertReply, error) {
 	path := ""
-	// TODO: ./ => /blog
 	if strings.Contains(in.Title, " ") {
-		path = "./" + strings.Join(strings.Split(in.Title, " "), "-") + ".md"
+		path = "./blog/" + strings.Join(strings.Split(in.Title, " "), "-") + ".md"
 	} else {
-		path = "./" + in.Title + ".md"
+		path = "./blog/" + in.Title + ".md"
 	}
 
 	id, err := l.svcCtx.PostModel.MaxId()

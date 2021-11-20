@@ -5,3 +5,5 @@ blog-rpc.yaml
 
 docker-compose.yaml
 test
+
+Dockerfile-*

@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"qianxi-blog/service/blog/model"
+	"strings"
 	"time"
 
 	"qianxi-blog/service/blog/api/internal/svc"
@@ -26,11 +27,21 @@ func NewSystemVisitLogic(ctx context.Context, svcCtx *svc.ServiceContext) System
 	}
 }
 
-func (l *SystemVisitLogic) SystemVisit(req types.VisitReq, r *http.Request) (*types.Reply, error) {
-	ip := r.Header.Get("X-Real-IP")
-	if ip == "" {
-		ip = r.RemoteAddr
+func getClientIP(r *http.Request) string {
+	ip := r.Header.Get("X-Forwarded-For")
+	if strings.Contains(ip, "127.0.0.1") || ip == "" {
+		ip = r.Header.Get("X-Real-IP")
 	}
+
+	if ip == "" {
+		return "127.0.0.1"
+	}
+
+	return ip
+}
+
+func (l *SystemVisitLogic) SystemVisit(req types.VisitReq, r *http.Request) (*types.Reply, error) {
+	ip := getClientIP(r)
 
 	_, err := l.svcCtx.VisitModel.Insert(model.Visit{
 		VisitTime: time.Now(),

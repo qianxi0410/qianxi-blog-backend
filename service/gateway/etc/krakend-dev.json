@@ -10,6 +10,7 @@
       "expose_headers": [
         "Content-Length",
         "Content-Type",
+        "authorization",
         "Location"
       ],
       "allow_headers": [
@@ -17,7 +18,7 @@
         "Origin",
         "X-Requested-With",
         "Accept",
-        "Authorization",
+        "authorization",
         "secret",
         "Host"
       ],
@@ -128,7 +129,8 @@
         }
       ],
       "headers_to_pass": [
-        "Content-Length",  "Content-Type"
+        "Content-Length",
+        "Content-Type"
       ],
       "concurrent_calls": 1,
       "timeout": "10s",
@@ -143,6 +145,300 @@
             "http://host.docker.internal:9998"
           ],
           "url_pattern": "/comment/id/{id}/login/{login}"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/user/login",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/user/login"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/user/tokenvalid",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/user/tokenvalid"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/post/update",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "admin/post/update"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/post/id/{id}/page/{page}/size/{size}",
+      "method": "DELETE",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/post/id/{id}/page/{page}/size/{size}"
+        }
+      ],
+      "headers_to_pass": [
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/post/update/content",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/post/update/content"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/post/insert",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/post/insert"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/comment/id/{id}/postid/{postid}",
+      "method": "DELETE",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/comment/id/{id}/postid/{postid}"
+        }
+      ],
+      "headers_to_pass": [
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/system/update",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/system/update"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/visit/week",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/visit/week"
+        }
+      ],
+      "headers_to_pass": [
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/system",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/system"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/countinfo",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/countinfo"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/post/page/{page}/size/{size}",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/post/page/{page}/size/{size}"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/post/count",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/post/count"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/comment/count",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/comment/count"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/post/id/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/post/id/{id}"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": 3600
+    },
+    {
+      "endpoint": "admin/comment/page/{page}/size/{size}",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://host.docker.internal:9999"
+          ],
+          "url_pattern": "/admin/comment/page/{page}/size/{size}"
         }
       ],
       "concurrent_calls": 1,

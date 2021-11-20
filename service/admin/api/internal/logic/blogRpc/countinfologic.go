@@ -58,7 +58,20 @@ func (l *CountInfoLogic) CountInfo() (*types.Reply, error) {
 
 	res[1] = commentCount.Count
 
-	// TODO:  some res[2] / res[3] info
+	visitedCount, err := l.svcCtx.BlogRpc.VisitedCount(l.ctx, &blogclient.CountReq{})
+	if err != nil {
+		return nil, err
+	}
+
+	res[2] = visitedCount.Count
+
+	peopleCount, err := l.svcCtx.BlogRpc.PeopleCount(l.ctx, &blogclient.CountReq{})
+	if err != nil {
+		return nil, err
+	}
+
+	res[3] = peopleCount.Count
+
 	marshal, err := json.Marshal(res)
 	if err != nil {
 		return nil, err

@@ -10,15 +10,19 @@
       "expose_headers": [
         "Content-Length",
         "Content-Type",
-        "Location"
+        "Location",
+        "authorization"
       ],
       "allow_headers": [
         "Content-Type",
         "Origin",
         "X-Requested-With",
         "Accept",
-        "Authorization",
+        "authorization",
         "secret",
+        "Host",
+        "X-Real-IP",
+        "X-Forwarded-For",
         "Host"
       ],
       "max_age": "12h",
@@ -32,6 +36,42 @@
   },
   "endpoints": [
     {
+      "endpoint": "blog/system/visit",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://blog_api:9998"
+          ],
+          "url_pattern": "/system/visit"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "X-Real-IP",
+        "X-Forwarded-For"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "blog/system/info",
+      "method": "GET",
+      "backend": [
+        {
+          "host": [
+            "http://blog_api:9998"
+          ],
+          "url_pattern": "/system/info"
+        }
+      ],
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
       "endpoint": "blog/oauth2/code/{code}",
       "method": "GET",
       "backend": [
@@ -43,7 +83,7 @@
         }
       ],
       "timeout": "10s",
-      "cache_ttl": 3600
+      "cache_ttl": "3600s"
     },
     {
       "endpoint": "blog/post/id/{id}",
@@ -57,7 +97,7 @@
         }
       ],
       "timeout": "10s",
-      "cache_ttl": 3600
+      "cache_ttl": "3600s"
     },
     {
       "endpoint": "blog/post/count",
@@ -71,7 +111,7 @@
         }
       ],
       "timeout": "10s",
-      "cache_ttl": 3600
+      "cache_ttl": "3600s"
     },
     {
       "endpoint": "blog/post/count/tag/{tag}",
@@ -85,7 +125,7 @@
         }
       ],
       "timeout": "10s",
-      "cache_ttl": 3600
+      "cache_ttl": "3600s"
     },
     {
       "endpoint": "blog/post/page/{page}/size/{size}",
@@ -99,7 +139,7 @@
         }
       ],
       "timeout": "10s",
-      "cache_ttl": 3600
+      "cache_ttl": "3600s"
     },
     {
       "endpoint": "blog/post/page/{page}/size/{size}/tag/{tag}",
@@ -113,7 +153,7 @@
         }
       ],
       "timeout": "10s",
-      "cache_ttl": 3600
+      "cache_ttl": "3600s"
     },
     {
       "endpoint": "blog/comment/save",
@@ -128,11 +168,12 @@
         }
       ],
       "headers_to_pass": [
-        "Content-Length",  "Content-Type"
+        "Content-Length",
+        "Content-Type"
       ],
       "concurrent_calls": 1,
       "timeout": "10s",
-      "cache_ttl": 3600
+      "cache_ttl": "3600s"
     },
     {
       "endpoint": "blog/comment/id/{id}/login/{login}",
@@ -147,7 +188,301 @@
       ],
       "concurrent_calls": 1,
       "timeout": "10s",
-      "cache_ttl": 3600
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/user/login",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/user/login"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/user/tokenvalid",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/user/tokenvalid"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/post/update",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "admin/post/update"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/post/id/:id/page/{page}/size/{size}",
+      "method": "DELETE",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/post/id/:id/page/{page}/size/{size}"
+        }
+      ],
+      "headers_to_pass": [
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/post/update/content",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/post/update/content"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/post/insert",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/post/insert"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/comment/id/{id}/postid/{postid}",
+      "method": "DELETE",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/comment/id/{id}/postid/{postid}"
+        }
+      ],
+      "headers_to_pass": [
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/system/update",
+      "method": "POST",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/system/update"
+        }
+      ],
+      "headers_to_pass": [
+        "Content-Length",
+        "Content-Type",
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/visit/week",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/visit/week"
+        }
+      ],
+      "headers_to_pass": [
+        "authorization"
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/system",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/system"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/countinfo",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/countinfo"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/post/page/{page}/size/{size}",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/post/page/{page}/size/{size}"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/post/count",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/post/count"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/comment/count",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/comment/count"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/post/id/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/post/id/{id}"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
+    },
+    {
+      "endpoint": "admin/comment/page/{page}/size/{size}",
+      "method": "GET",
+      "backend": [
+        {
+          "encoding": "json",
+          "host": [
+            "http://admin_api:9999"
+          ],
+          "url_pattern": "/admin/comment/page/{page}/size/{size}"
+        }
+      ],
+      "concurrent_calls": 1,
+      "timeout": "10s",
+      "cache_ttl": "3600s"
     }
   ]
 }

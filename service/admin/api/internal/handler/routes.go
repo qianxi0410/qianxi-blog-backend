@@ -65,6 +65,11 @@ func RegisterHandlers(engine *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/admin/system/update",
 				Handler: blogRpc.UpdateSystemInfoHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodGet,
+				Path:    "/admin/visit/week",
+				Handler: blogRpc.WeekCountHandler(serverCtx),
+			},
 		},
 		rest.WithJwt(serverCtx.Config.Jwt.AccessSecret),
 	)
